@@ -1,6 +1,7 @@
 <template>
   <div id="app">
-    <p>{{ message }}</p>
+    <router-view name="header"></router-view>
+    <router-view></router-view>
   </div>
 </template>
 
@@ -10,13 +11,8 @@ export default {
     return {
       message: "Hello Vue!"
     }
-  }
+  },
 }
 </script>
 
-<style scoped>
-p {
-  font-size: 2em;
-  text-align: center;
-}
-</style>
+
