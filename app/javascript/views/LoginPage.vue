@@ -33,16 +33,23 @@ import axios from "axios"
           email: "",
           password: ""
         },
-        errors:""
+        errors: ""
       }
     },
     methods:{
       login(){
         axios.post(`/api/v1/sessions`, this.user)
         .then(response => {
-          alert("ログインに成功しました。")
+          console.log(response.data)
           let e = response.data
-          this.$router.push({ path: `/users/${e.id}`});
+          if(e.judge){
+            alert(e.message)
+            this.$router.push({ path: `/users/${e.user_id}`});
+          }else{
+            alert(e.message)
+            this.$router.go(0)
+          }
+          
         })
         .catch(error => {
           console.error(error)
