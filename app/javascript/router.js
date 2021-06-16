@@ -6,6 +6,7 @@ const Signup = () => import(/* webpackChunkName: "Signup" */'./views/Signup.vue'
 const LoginPage = () => import(/* webpackChunkName: "LoginPage" */'./views/LoginPage.vue') 
 const UserHome = () => import(/* webpackChunkName: "UserHome" */'./views/UserHome.vue') 
 const UserHeader = () => import(/* webpackChunkName: "UserHeader" */'./views/UserHeader.vue') 
+const UserCalender = () => import(/* webpackChunkName: "UserCalender" */'./views/UserCalender.vue') 
 Vue.use(Router);
 
 export default new Router({
@@ -41,7 +42,9 @@ export default new Router({
             default: UserHome,
             header: UserHeader
         },
-        name: 'user_path'
+        children: [
+            {path: "calender", component: UserCalender, name: "calender"}
+        ]
       }
     ]
 })

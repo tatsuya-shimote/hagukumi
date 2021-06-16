@@ -7,23 +7,50 @@
         <!--<img src="./images/hagukumi_icon.png" id="hughug-flowers">-->
       </div>
     </transition>
-    <div class = "container sub-section">
-      <h2>日本の幸福度ランキングは右肩下がり！！</h2>
-      <p>
-        日本は世界幸福度ランキング５８位。主要先進国G7の中では圧倒的に低い順位である。
-        上位を占める国は北欧であり，このことから日本に足りないことが明らかになった。
-        <span>それはハグだ</span>
-      </p>
-    </div>
-    <div class="container sub-section">
-      <h2>ハグの効果は絶大</h2>
-      <p>リラックス効果，ストレス軽減，信頼関係が深まる。そして，<span>幸福感が増す！！</span>
-      ハグを習慣化することで幸せになろう。</p>
-    </div>
-    <div class="container sub-section">
-      <h2>あなたのハグの習慣化の手助けをします。</h2>
-      <p>このアプリはあなたの１日のハグ時間を記録し，現在のあなたの幸福度を１００点満点で計算します。</p>
-    </div>
+    <v-lazy
+        :options="{
+          threshold: 1
+        }"
+        min-height="200"
+      >
+      <transition name="slide" mode="out-in">
+        <div class = "container sub-section">
+            <h2>日本の幸福度ランキングは右肩下がり！！</h2>
+            <p>
+              日本は世界幸福度ランキング５８位。主要先進国G7の中では圧倒的に低い順位である。
+              上位を占める国は北欧であり，このことから日本に足りないことが明らかになった。
+              <span>それはハグだ</span>
+            </p>
+        </div>
+      </transition>
+    </v-lazy>
+    <v-lazy
+        :options="{
+          threshold: 1
+        }"
+        min-height="200"
+      >
+      <transition name="slide-reverse" mode="out-in">
+        <div class="container sub-section">
+          <h2>ハグの効果は絶大</h2>
+          <p>リラックス効果，ストレス軽減，信頼関係が深まる。そして，<span>幸福感が増す！！</span>
+          ハグを習慣化することで幸せになろう。</p>
+        </div>
+      </transition>
+    </v-lazy>
+    <v-lazy
+        :options="{
+          threshold: 1
+        }"
+        min-height="200"
+      >
+      <transition name="slide" mode="out-in">
+      <div class="container sub-section">
+        <h2>あなたのハグの習慣化の手助けをします。</h2>
+        <p>このアプリはあなたの１日のハグ時間を記録し，現在のあなたの幸福度を１００点満点で計算します。</p>
+      </div>
+      </transition>
+    </v-lazy>
   </div>
 </template>
 
@@ -31,7 +58,8 @@
   export default{
     data(){
       return{
-        animate: true
+        isActive: false,
+        animate: true,
       }
     },
   }
@@ -40,14 +68,30 @@
 <style scoped>
 @import url('https://fonts.googleapis.com/css2?family=RocknRoll+One&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Shippori+Mincho&display=swap');
-.fade-enter,
-.fade-leave-to {
+.fade-enter{
   opacity: 0;
 }
 
-.fade-enter-active,
-.fade-leave-active{
+.fade-enter-active{
   transition: opacity 2.0s;
+}
+
+.slide-enter{
+  transform: translateX(-100%);
+  opacity: 0;
+}
+
+.slide-enter-active{
+  transition: all 2.0s;
+}
+
+.slide-reverse-enter{
+  transform: translateX(100%);
+  opacity: 0;
+}
+
+.slide-reverse-enter-active{
+  transition: all 2.0s;
 }
 
 #app-name{
@@ -82,4 +126,7 @@
 .sub-section{
   margin-top: 80px;
 }
+
+
+
 </style>

@@ -1,4 +1,5 @@
 class Api::V1::UsersController < ApiController
+  before_action :require_login, only: [:show]
  
   # 拾えなかったExceptionが発生したら500 Internal server errorを応答する
   rescue_from Exception, with: :render_status_500
@@ -12,17 +13,26 @@ class Api::V1::UsersController < ApiController
   # end
 
   def show
-    @user = User.find(params[:id])
-    render json: @user
+    @user = User.find_by(id: params[:id])
+    if @user == @current_user
+      payload = @user
+    else
+      payload = {message: "メールアドレスまたはパスワードが違います。", judge: true}
+    end
+      render json: payload
   end
 
   def create
     user = User.new(user_params)
     if user.save
+      session[:user_id] = user.id
       render json: user, status: :created
     else
       render json: { errors: user.errors.full_messages }, status: :unprocessable_entity
     end
+  end
+  
+  def calender
   end
 
   private
@@ -38,4 +48,5 @@ class Api::V1::UsersController < ApiController
     def render_status_500(exception)
       render json: { errors: [exception] }, status: 500
     end
+    
 end

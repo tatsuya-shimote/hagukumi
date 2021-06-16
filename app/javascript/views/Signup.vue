@@ -20,10 +20,9 @@
       
             <label for="user_password_confirmation">パスワード確認</label>
             <input class="form-control" type="password" v-model="user.password_confirmation">
-            <div class="login-btn">
-              <button type="submit">登録</button>
-            <!--<input type="submit" name="commit" value="登録" class="btn btn-success" data-disable-with="登録">-->
-            </div>
+            <v-app>
+              <v-btn color="blue" id="signup-btn" type="submit">登録</v-btn>
+            </v-app>
           </form>
       </div>
     </div>
@@ -64,3 +63,11 @@ import axios from "axios"
     }
   }
 </script>
+
+<style scoped>
+#signup-btn{
+  margin-top: 20px;
+  color: white;
+  
+}
+</style>

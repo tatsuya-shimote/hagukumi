@@ -14,11 +14,12 @@
     
           <label for="session_password">パスワード</label>
           <input class="form-control" type="password" v-model="user.password">
-          <div class="login-btn">
-          <input type="submit" name="commit" value="ログイン" class="btn btn-success" data-disable-with="ログイン">
-          </div>
+          <v-app>
+            <v-btn color="blue" id="login-btn" type="submit">ログイン</v-btn>
+            <p class="center">初めてのご利用の方は今すぐ<router-link to="/signup" active-class="link--active" exact>新規登録</router-link></p>
+          </v-app>
         </form>
-        <p class="center">初めてのご利用の方は今すぐ<router-link to="/signup" class="btn" active-class="link--active" exact>新規登録</router-link></p>
+        
       </div>
     </div>
   </div>
@@ -62,3 +63,11 @@ import axios from "axios"
     
   }
 </script>
+
+<style scoped>
+#login-btn{
+  margin-top: 20px;
+  color: white;
+  
+}
+</style>
