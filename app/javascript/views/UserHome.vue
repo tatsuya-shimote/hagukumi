@@ -33,18 +33,19 @@
                       lazy-validation
                     >
                       <v-text-field
-                        v-model="name"
+                        v-model="events.name"
                         :counter="10"
-                        :rules="nameRules"
-                        label="Name"
+                        label="今日のハグ数"
                       ></v-text-field>
-                  
-                      <v-text-field
-                        v-model="email"
-                        :rules="emailRules"
-                        label="E-mail"
-                      ></v-text-field>
-                  
+                
+                      
+                      <v-btn
+                        color="primary"
+                        class="mr-4"
+                        @click="record"
+                      >
+                        記録
+                      </v-btn>
                       <v-btn
                         color="error"
                         class="mr-4"
@@ -96,18 +97,18 @@
                   lazy-validation
                 >
                   <v-text-field
-                    v-model="name"
+                    v-model="events.name"
                     :counter="10"
-                    :rules="nameRules"
                     label="Name"
                   ></v-text-field>
-              
-                  <v-text-field
-                    v-model="email"
-                    :rules="emailRules"
-                    label="E-mail"
-                  ></v-text-field>
-              
+                  
+                  <v-btn
+                    color="primary"
+                    class="mr-4"
+                    @click="record"
+                  >
+                    記録
+                  </v-btn>
                   <v-btn
                     color="error"
                     class="mr-4"
@@ -121,7 +122,7 @@
           </v-container>
         </template>
       </v-dialog>
-      <UserCalender></UserCalender>
+      <UserCalender :events="events"></UserCalender>
     </v-overlay>
     </v-app>
   </div>
@@ -139,8 +140,10 @@ import axios from "axios"
         focus: '',
         dialog: false,
         valid: true,
-        name: '',
-        email: '',
+        events: [{
+          name: "今日のハグ",
+          start: "2021-06-17",
+        }],
         
         }
     },
@@ -154,6 +157,9 @@ import axios from "axios"
         reset () {
         this.$refs.form.reset()
       },
+      record(){
+        return this.events.push({name: this.events.name, start: "2021-06-17"})
+      }
       },
      mounted(){
       axios.get(`/api/v1/users/${this.$route.params.id}.json`)

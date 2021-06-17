@@ -39,24 +39,14 @@
 
 <script>
   export default {
+    props:["events"],
     data: () => ({
       focus: '',
       dialog: false,
       type: 'month',
-      typeToLabel: {
-        month: 'Month',
-        week: 'Week',
-        day: 'Day',
-        '4day': '4 Days',
-      },
       selectedEvent: {},
       selectedElement: null,
       selectedOpen: false,
-      events: [{
-        name: "",
-        start: "2021-06-17",
-        color: '',
-      }],
     }),
     mounted () {
       this.$refs.calendar.checkChange()
