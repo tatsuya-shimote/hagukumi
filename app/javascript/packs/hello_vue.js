@@ -8,8 +8,8 @@
 import Vue from 'vue'
 import App from '../app.vue'
 import router from '../router'
-import store from '../store';
 import Vuetify from 'vuetify'
+import store from '../store'
 import "vuetify/dist/vuetify.min.css"
 import 'bootstrap/dist/css/bootstrap.css' // add
 import 'bootstrap-vue/dist/bootstrap-vue.css'
@@ -20,8 +20,8 @@ const vuetify = new Vuetify(); // 追加
 document.addEventListener('DOMContentLoaded', () => {
   const app = new Vue({
     vuetify,
-    router,
     store,
+    router,
     render: h => h(App)
   }).$mount()
   document.body.appendChild(app.$el)

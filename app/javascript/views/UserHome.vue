@@ -11,31 +11,150 @@
           <div class="card-body">
             <h3 class="card-title">現在の<br>幸福度</h3>
             <p class="card-text">100</p>
-            <router-link :to="{ name: 'calender'}">
-              <v-btn color="blue" id="hug-record">
-                今日のハグを記録
-              </v-btn>
-            </router-link>
+                <v-dialog
+                transition="dialog-top-transition"
+                max-width="600"
+              >
+              <template v-slot:activator="{ on, attrs }">
+                <v-btn
+                  color="primary"
+                  v-bind="attrs"
+                  v-on="on"
+                  class="hug-record"
+                >今日のハグを記録</v-btn>
+              </template>
+              <template v-slot:default="dialog">
+                <v-container>
+                <v-card min-width="350" height="250" class="hug-register">
+                  <v-card-title>ハグの記録</v-card-title>
+                    <v-form
+                      ref="form"
+                      v-model="valid"
+                      lazy-validation
+                    >
+                      <v-text-field
+                        v-model="name"
+                        :counter="10"
+                        :rules="nameRules"
+                        label="Name"
+                      ></v-text-field>
+                  
+                      <v-text-field
+                        v-model="email"
+                        :rules="emailRules"
+                        label="E-mail"
+                      ></v-text-field>
+                  
+                      <v-btn
+                        color="error"
+                        class="mr-4"
+                        @click="reset"
+                      >
+                        Reset Form
+                      </v-btn>
+                  
+                    </v-form>
+                </v-card>
+                </v-container>
+              </template>
+            </v-dialog>
           </div>
         </div>
         <p class="comment">コメント：とても幸せですね。その幸せを大切に，感謝を忘れずに</p>
         <img src="../images/hagukumi_icon.png" id = "app-icon">
       </div>
     </transition>
-    <router-view></router-view>
+    <v-overlay
+          :absolute="absolute"
+          :value="this.$store.state.overlay"
+        >
+      <v-btn
+        color="primary"
+        @click="changeOverlay"
+      >
+        閉じる
+      </v-btn>
+      <v-dialog
+          transition="dialog-top-transition"
+          max-width="600"
+        >
+        <template v-slot:activator="{ on, attrs }">
+          <v-btn
+            color="primary"
+            v-bind="attrs"
+            v-on="on"
+            class="hug-record"
+          >今日のハグを記録</v-btn>
+        </template>
+        <template v-slot:default="dialog">
+          <v-container>
+            <v-card min-width="350" height="250" class="hug-register">
+              <v-card-title>ハグの記録</v-card-title>
+                <v-form
+                  ref="form"
+                  v-model="valid"
+                  lazy-validation
+                >
+                  <v-text-field
+                    v-model="name"
+                    :counter="10"
+                    :rules="nameRules"
+                    label="Name"
+                  ></v-text-field>
+              
+                  <v-text-field
+                    v-model="email"
+                    :rules="emailRules"
+                    label="E-mail"
+                  ></v-text-field>
+              
+                  <v-btn
+                    color="error"
+                    class="mr-4"
+                    @click="reset"
+                  >
+                    Reset Form
+                  </v-btn>
+              
+                </v-form>
+            </v-card>
+          </v-container>
+        </template>
+      </v-dialog>
+      <UserCalender></UserCalender>
+    </v-overlay>
     </v-app>
   </div>
 </template>
 
 <script>
+import UserCalender from './UserCalender.vue'
 import axios from "axios"
   export default {
     data(){
       return {
-        alert: true,
-        user: {}
-      }
+        dialog: false,
+        absolute: true,
+        user: {},
+        focus: '',
+        dialog: false,
+        valid: true,
+        name: '',
+        email: '',
+        
+        }
     },
+    components: {
+      UserCalender
+    },
+    methods:{
+        changeOverlay(){
+          this.$store.commit("changeOverlay", false)
+        },
+        reset () {
+        this.$refs.form.reset()
+      },
+      },
      mounted(){
       axios.get(`/api/v1/users/${this.$route.params.id}.json`)
       .then(response => {
@@ -90,7 +209,7 @@ import axios from "axios"
   width: 200px;
 }
 
-#hug-record{
+.hug-record{
   color: white;
 }
 </style>
