@@ -25,7 +25,6 @@ export default new Vuex.Store({
     loadUserHugInfo(state){
       axios.get("/api/v1/hugs.json")
         .then(response => {
-          console.log(response)
           const e = response.data;
           Object.keys(e).forEach(key => {
             const userHugInfo = e[key]

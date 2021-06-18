@@ -48,7 +48,6 @@ import axios from "axios"
         axios
           .post('/api/v1/users', this.user)
           .then(response => {
-            console.log(response)
             alert("登録に成功しました。")
             let e = response.data;
             this.$router.push({ path: `/users/${e.id}`});
