@@ -33,7 +33,7 @@
                       lazy-validation
                     >
                       <v-text-field
-                        v-model="events.name"
+                        v-model="hug.count"
                         :counter="10"
                         label="今日のハグ数"
                       ></v-text-field>
@@ -97,9 +97,9 @@
                   lazy-validation
                 >
                   <v-text-field
-                    v-model="events.name"
+                    v-model="hug.count"
                     :counter="10"
-                    label="Name"
+                    label="今日のハグ数"
                   ></v-text-field>
                   
                   <v-btn
@@ -122,7 +122,7 @@
           </v-container>
         </template>
       </v-dialog>
-      <UserCalender :events="events"></UserCalender>
+      <UserCalender></UserCalender>
     </v-overlay>
     </v-app>
   </div>
@@ -140,10 +140,9 @@ import axios from "axios"
         focus: '',
         dialog: false,
         valid: true,
-        events: [{
-          name: "今日のハグ",
-          start: "2021-06-17",
-        }],
+        hug: {
+          count: Number(),
+        },
         
         }
     },
@@ -158,10 +157,20 @@ import axios from "axios"
         this.$refs.form.reset()
       },
       record(){
-        return this.events.push({name: this.events.name, start: "2021-06-17"})
+        axios.post(`/api/v1/hugs`,this.hug)
+        .then(response => {
+          console.log(response)
+        })
+        .catch(error => {
+            console.error(error);
+            if (error.response.data && error.response.data.errors) {
+              this.errors = error.response.data.errors;
+            }
+          });
+        
       }
       },
-     mounted(){
+     created(){
       axios.get(`/api/v1/users/${this.$route.params.id}.json`)
       .then(response => {
         const e = response.data
@@ -170,11 +179,14 @@ import axios from "axios"
         }
         this.user = response.data //これ本番はまずい書き方？password_digestまでわかる。
       })
+    },
+    mounted(){
+      this.$store.commit("loadUserHugInfo")
     }
   }
-
-
 </script>
+
+
 
 <style scoped>
 @import url('https://fonts.googleapis.com/css2?family=RocknRoll+One&display=swap');

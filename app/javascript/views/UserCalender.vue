@@ -26,9 +26,8 @@
             ref="calendar"
             v-model="focus"
             color="primary"
-            :events="events"
+            :events="this.$store.state.events"
             :type="type"
-            @click:event="showEvent"
           >
           </v-calendar>
       </v-sheet>
@@ -39,7 +38,6 @@
 
 <script>
   export default {
-    props:["events"],
     data: () => ({
       focus: '',
       dialog: false,
@@ -63,24 +61,8 @@
       },
       next () {
         this.$refs.calendar.next()
-      },
-      showEvent ({ nativeEvent, event }) {
-        const open = () => {
-          this.selectedEvent = event
-          this.selectedElement = nativeEvent.target
-          setTimeout(() => this.selectedOpen = true, 10)
-        }
-
-        if (this.selectedOpen) {
-          this.selectedOpen = false
-          setTimeout(open, 10)
-        } else {
-          open()
-        }
-
-        nativeEvent.stopPropagation()
-      },
-    },
+      }
+    }
   }
 </script>
 
