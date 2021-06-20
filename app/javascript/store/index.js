@@ -2,6 +2,7 @@ import Vue from 'vue';
 import Vuex from 'vuex';
 import router from '../router';
 import axios from 'axios'
+import axiosAuth from '../axios_auth.js'
 
 Vue.use(Vuex);
 
@@ -12,16 +13,23 @@ let date = now.getDate()
 
 export default new Vuex.Store({
   state: {
+    idToken: null,
     overlay: false,
-    events: [{
-          name: "アプリを始めた日",
-          start:`${year}-${month}-${date}`
-        }],
+    events: [],
+  },
+  getters:{
+    idToken: state => state.idToken
   },
   mutations: {
+    
     changeOverlay(state,overlay) {
       state.overlay = overlay ;
     },
+    
+    updateIdToken(state, idToken) {
+      state.idToken = idToken;
+    },
+    
     loadUserHugInfo(state){
       axios.get("/api/v1/hugs.json")
         .then(response => {
@@ -32,11 +40,42 @@ export default new Vuex.Store({
           })
         })
     },
+    
     inputUserHugInfo(state, hugCount){
       state.events.push({name: hugCount, start: "2021-06-21"})
     }
   },
+  
   actions: {
+    
+    register({ dispatch, commit }, authData){
+      axiosAuth
+        .post(`/accounts:signUp?key=${process.env.VUE_APP_FIREBASE_API_KEY}`,{
+          email: authData.email,
+          password: authData.password,
+          returnSecureToken: true
+        }).then(response => {
+          console.log(response)
+          commit('updateIdToken', response.data.idToken)
+          // dispatch('setAuthData', {
+          //   idToken: response.data.idToken,
+          //   expiresIn: response.data.expiresIn,
+          //   refreshToken: response.data.refreshToken
+          // });
+        });
+    },
+    
+    // setAuthData({ commit, dispatch }, authData) {
+    //   const now = new Date();
+    //   const expiryTimeMs = now.getTime() + authData.expiresIn * 1000;
+    //   commit('updateIdToken', authData.idToken);
+    //   localStorage.setItem('idToken', authData.idToken);
+    //   localStorage.setItem('expiryTimeMs', expiryTimeMs);
+    //   localStorage.setItem('refreshToken', authData.refreshToken);
+      // setTimeout(() => {
+      //   dispatch('refreshIdToken', authData.refreshToken);
+      // }, authData.expiresIn * 1000);
+    // }
     
   }
 });

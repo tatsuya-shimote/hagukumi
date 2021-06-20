@@ -3,7 +3,7 @@
     <div class="row">
       <div class="col-md-6 offset-md-3 login-form">
         <h2 class = "text-center">新規登録</h2>
-          <form @submit.prevent="signUp" >
+          <form @submit.prevent="signUpAction" >
             <div v-if="errors.length != 0">
               <ul v-for="e in errors" :key="e">
                 <li><font color="red">{{ e }}</font></li>
@@ -44,6 +44,10 @@ import axios from "axios"
       }
     },
     methods: {
+      signUpAction: async function(){
+        await this.register()
+        await this.signUp()
+      },
       signUp: function() {
         axios
           .post('/api/v1/users', this.user)
@@ -58,6 +62,14 @@ import axios from "axios"
               this.errors = error.response.data.errors;
             }
           });
+      },
+      register: function(){
+        if(this.user.name && this.user.password == this.user.password_confirmation){
+          this.$store.dispatch("register", {
+          email: this.user.email,
+          password: this.user.password,
+        })
+        }
       }
     }
   }

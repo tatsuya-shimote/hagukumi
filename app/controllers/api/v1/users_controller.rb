@@ -14,7 +14,7 @@ class Api::V1::UsersController < ApiController
 
   def show
     @user = User.find_by(id: params[:id])
-    if @user == @current_user
+    if @user && @user == @current_user
       payload = @user
     else
       payload = {message: "メールアドレスまたはパスワードが違います。", judge: true}

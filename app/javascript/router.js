@@ -1,5 +1,6 @@
 import Vue from "vue";
 import Router from "vue-router";
+import store from './store'
 const TopPage = () => import(/* webpackChunkName: "TopPage" */"./views/TopPage.vue");
 const TopHeader = () => import(/* webpackChunkName: "TopHeader" */'./views/TopHeader.vue') 
 const Signup = () => import(/* webpackChunkName: "Signup" */'./views/Signup.vue') 
@@ -41,6 +42,13 @@ export default new Router({
             default: UserHome,
             header: UserHeader
         },
+        // beforeEnter(to, from, next) {
+        //   if (store.getters.idToken) {
+        //     next();
+        //   } else {
+        //     next('/login');
+        //   }
+        // }
       }
     ]
 })

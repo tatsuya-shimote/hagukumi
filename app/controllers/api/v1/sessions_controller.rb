@@ -12,6 +12,7 @@ class Api::V1::SessionsController < ApiController
   end
   
   def destroy
-    session[:user_id] = null
+    session[:user_id] = nil
+    render json: {message: "使ってくれてありがとう。またきてね"}
   end
 end

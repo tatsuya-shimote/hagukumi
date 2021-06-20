@@ -160,6 +160,7 @@ import axios from "axios"
         axios.post(`/api/v1/hugs`,this.hug)
         .then(response => {
           console.log(response)
+          
         })
         .catch(error => {
             console.error(error);
