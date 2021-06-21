@@ -10,6 +10,8 @@
         :value="this.$store.state.drawer"
         absolute
         right
+        mobile-breakpoint="400"
+        bottom
         temporary
       >
       <v-card
