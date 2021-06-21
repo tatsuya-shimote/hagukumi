@@ -39,6 +39,10 @@ import axios from "axios"
     },
     methods:{
       login(){
+        this.loginApiPost()
+        this.loginAuth()
+      },
+      loginApiPost(){
         axios.post(`/api/v1/sessions`, this.user)
         .then(response => {
           console.log(response.data)
@@ -57,6 +61,12 @@ import axios from "axios"
           if (error.response.data && error.response.data.errors) {
               this.errors = error.response.data.errors;
             }
+        })
+      },
+      loginAuth(){
+        this.$store.dispatch("login", {
+          email: this.user.email,
+          password: this.user.password,
         })
       }
     }

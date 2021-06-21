@@ -69,6 +69,17 @@ export default new Vuex.Store({
           // });
         });
     },
+    login({commit, dispatch}, authData){
+      axiosAuth
+      .post(`/accounts:signInWithPassword?key=${process.env.VUE_APP_FIREBASE_API_KEY}`,{
+        email: authData.email,
+        password: authData.password,
+        returnSecureToken: true
+      }).then(response => {
+          console.log(response)
+          commit('updateIdToken', response.data.idToken)
+      });
+    }
     
     // setAuthData({ commit, dispatch }, authData) {
     //   const now = new Date();
