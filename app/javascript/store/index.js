@@ -15,6 +15,7 @@ export default new Vuex.Store({
   state: {
     idToken: null,
     overlay: false,
+    drawer: false,
     events: [],
   },
   getters:{
@@ -24,6 +25,10 @@ export default new Vuex.Store({
     
     changeOverlay(state,overlay) {
       state.overlay = overlay ;
+    },
+    
+    changeDrawer(state) {
+      state.drawer = !state.drawer;
     },
     
     updateIdToken(state, idToken) {

@@ -11,54 +11,7 @@
           <div class="card-body">
             <h3 class="card-title">現在の<br>幸福度</h3>
             <p class="card-text">100</p>
-                <v-dialog
-                transition="dialog-top-transition"
-                max-width="600"
-              >
-              <template v-slot:activator="{ on, attrs }">
-                <v-btn
-                  color="primary"
-                  v-bind="attrs"
-                  v-on="on"
-                  class="hug-record"
-                >今日のハグを記録</v-btn>
-              </template>
-              <template v-slot:default="dialog">
-                <v-container>
-                <v-card min-width="350" height="250" class="hug-register">
-                  <v-card-title>ハグの記録</v-card-title>
-                    <v-form
-                      ref="form"
-                      v-model="valid"
-                      lazy-validation
-                    >
-                      <v-text-field
-                        v-model="hug.count"
-                        :counter="10"
-                        label="今日のハグ数"
-                      ></v-text-field>
-                
-                      
-                      <v-btn
-                        color="primary"
-                        class="mr-4"
-                        @click="record"
-                      >
-                        記録
-                      </v-btn>
-                      <v-btn
-                        color="error"
-                        class="mr-4"
-                        @click="reset"
-                      >
-                        Reset Form
-                      </v-btn>
-                  
-                    </v-form>
-                </v-card>
-                </v-container>
-              </template>
-            </v-dialog>
+              <HugRegisterDialog :hug="hug"></HugRegisterDialog>
           </div>
         </div>
         <p class="comment">コメント：とても幸せですね。その幸せを大切に，感謝を忘れずに</p>
@@ -66,62 +19,16 @@
       </div>
     </transition>
     <v-overlay
-          :absolute="absolute"
-          :value="this.$store.state.overlay"
-        >
+      :absolute="absolute"
+      :value="this.$store.state.overlay"
+    >
       <v-btn
         color="primary"
         @click="changeOverlay"
       >
         閉じる
       </v-btn>
-      <v-dialog
-          transition="dialog-top-transition"
-          max-width="600"
-        >
-        <template v-slot:activator="{ on, attrs }">
-          <v-btn
-            color="primary"
-            v-bind="attrs"
-            v-on="on"
-            class="hug-record"
-          >今日のハグを記録</v-btn>
-        </template>
-        <template v-slot:default="dialog">
-          <v-container>
-            <v-card min-width="350" height="250" class="hug-register">
-              <v-card-title>ハグの記録</v-card-title>
-                <v-form
-                  ref="form"
-                  v-model="valid"
-                  lazy-validation
-                >
-                  <v-text-field
-                    v-model="hug.count"
-                    :counter="10"
-                    label="今日のハグ数"
-                  ></v-text-field>
-                  
-                  <v-btn
-                    color="primary"
-                    class="mr-4"
-                    @click="record"
-                  >
-                    記録
-                  </v-btn>
-                  <v-btn
-                    color="error"
-                    class="mr-4"
-                    @click="reset"
-                  >
-                    Reset Form
-                  </v-btn>
-              
-                </v-form>
-            </v-card>
-          </v-container>
-        </template>
-      </v-dialog>
+      <HugRegisterDialog :hug="hug"></HugRegisterDialog>
       <UserCalender></UserCalender>
     </v-overlay>
     </v-app>
@@ -130,6 +37,7 @@
 
 <script>
 import UserCalender from './UserCalender.vue'
+import HugRegisterDialog from './HugRegisterDialog.vue'
 import axios from "axios"
   export default {
     data(){
@@ -139,7 +47,6 @@ import axios from "axios"
         user: {},
         focus: '',
         dialog: false,
-        valid: true,
         hug: {
           count: Number(),
         },
@@ -147,7 +54,8 @@ import axios from "axios"
         }
     },
     components: {
-      UserCalender
+      UserCalender,
+      HugRegisterDialog
     },
     methods:{
         changeOverlay(){
@@ -156,21 +64,8 @@ import axios from "axios"
         reset () {
         this.$refs.form.reset()
       },
-      record(){
-        axios.post(`/api/v1/hugs`,this.hug)
-        .then(response => {
-          console.log(response)
-          
-        })
-        .catch(error => {
-            console.error(error);
-            if (error.response.data && error.response.data.errors) {
-              this.errors = error.response.data.errors;
-            }
-          });
-        
-      }
-      },
+      
+    },
      created(){
       axios.get(`/api/v1/users/${this.$route.params.id}.json`)
       .then(response => {

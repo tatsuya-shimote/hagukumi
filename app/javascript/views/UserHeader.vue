@@ -3,29 +3,78 @@
     <nav class = "navbar navbar-expand headnav">
       <div class="container-fluid">
         <router-link to="/" class="navbar-brand" active-class="link--active" exact>Hugクミ</router-link>
-        <ul class="navbar-nav ml-auto">
-            <li class="nav-item mr-4"><a class = "button" active-class="link--active" @click="changeOverlay">記録カレンダー</a></li> 
-            <li class="nav-item mr-4"><a class = "button" active-class="link--active" @click="logout">ログアウト</a></li> 
-        </ul>
-    </div>
+      </div>
+      <v-app-bar-nav-icon @click.stop="changeDrawer"></v-app-bar-nav-icon>
     </nav>
+    <v-navigation-drawer
+        :value="this.$store.state.drawer"
+        absolute
+        right
+        temporary
+      >
+      <v-card
+        class="mx-auto"
+        max-width="300"
+        tile
+      >
+        <v-list flat>
+          <v-subheader>ユーザーメニュー</v-subheader>
+          <v-list-item-group
+            v-model="selectedItem"
+            color="primary"
+          >
+            <v-list-item>
+              <v-list-item-content>
+                <v-list-item-title>
+                  <a class = "button" active-class="link--active" @click="changeBoolean">記録カレンダー</a>
+                </v-list-item-title>
+              </v-list-item-content>
+            </v-list-item>
+            <v-list-item>
+              <v-list-item-content>
+                <v-list-item-title>
+                  <a class = "button" active-class="link--active" @click="logout">ログアウト</a>
+                </v-list-item-title>
+              </v-list-item-content>
+            </v-list-item>
+          </v-list-item-group>
+        </v-list>
+      </v-card>
+    </v-navigation-drawer>
   </div>
 </template>
 <script>
 import axios from "axios"
 export default {
-      methods:{
-        changeOverlay(){
-          this.$store.commit("changeOverlay", true)
-        },
-        logout(){
-          axios.delete(`/api/v1/sessions/${this.$route.params.id}`)
-          .then(response => {
-            console.log(response)
-            this.$router.push("/")
-          })
-        }
-      }
+  data(){
+    return {
+      selectedItem: 1,
+    }
+  },
+  methods:{
+    
+    changeOverlay(){
+      this.$store.commit("changeOverlay", true)
+    },
+    
+    changeDrawer(){
+      this.$store.commit("changeDrawer")
+    },
+    
+    logout(){
+      axios.delete(`/api/v1/sessions/${this.$route.params.id}`)
+      .then(response => {
+        console.log(response)
+        this.$router.push("/")
+      })
+    },
+    
+    changeBoolean(){
+      this.changeDrawer()
+      this.changeOverlay()
+    }
+    
+  }
 }
 
 </script>

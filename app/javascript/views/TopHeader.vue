@@ -7,10 +7,20 @@
             <li class="nav-item mr-4"><router-link to="/signup" class = "button" active-class="link--active" exact>新規登録</router-link></li> 
             <li class="nav-item mr-1"><router-link to="/login" class="button" active-class="link--active" exact>ログイン</router-link></li>
         </ul>
-    </div>
+      </div>
     </nav>
   </div>
 </template>
+
+<script>
+  export default {
+    data(){
+      return {
+        drawer: false
+      }
+    }
+  }
+</script>
 
 <style scoped>
 .headnav{
