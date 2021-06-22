@@ -1,7 +1,7 @@
 <template>
   <div>
     <nav class = "navbar navbar-expand headnav">
-      <div class="container-fluid">
+      <div class="container-fluid" @click='resetEvents'>
         <router-link to="/" class="navbar-brand" active-class="link--active" exact>Hugクミ</router-link>
       </div>
       <v-app-bar-nav-icon @click.stop="changeDrawer"></v-app-bar-nav-icon>
@@ -69,6 +69,7 @@ export default {
         alert(response.data.message)
         this.$store.commit("updateUserId", null)
         this.$store.commit("updateIdToken", null)
+        this.$store.commit("resetEvents")
         this.changeDrawer()
         this.$router.push("/")
       })
@@ -77,6 +78,10 @@ export default {
     changeBoolean(){
       this.changeDrawer()
       this.changeOverlay()
+    },
+    
+    resetEvents(){
+      this.$store.commit("resetEvents")
     }
     
   }

@@ -41,6 +41,10 @@ export default new Vuex.Store({
       state.idToken = idToken;
     },
     
+    resetEvents(state){
+      state.events = []
+    },
+    
     calenderRecord(state, newRecord){
       state.events.push(newRecord)
     },
