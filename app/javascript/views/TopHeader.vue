@@ -3,10 +3,15 @@
     <nav class = "navbar navbar-expand headnav">
       <div class="container-fluid">
         <router-link to="/" class="navbar-brand" active-class="link--active" exact>Hugクミ</router-link>
-        <ul class="navbar-nav ml-auto">
-            <li class="nav-item mr-4"><router-link to="/signup" class = "button" active-class="link--active" exact>新規登録</router-link></li> 
-            <li class="nav-item mr-1"><router-link to="/login" class="button" active-class="link--active" exact>ログイン</router-link></li>
-        </ul>
+        <template v-if="this.$store.getters.idToken">
+            <router-link :to="{name: 'user-home', params: {id: this.$store.getters.userId}}" class = "button" active-class="link--active" exact>ユーザーページ</router-link></li> 
+        </template>
+        <template v-else>
+          <ul class="navbar-nav ml-auto">
+              <li class="nav-item mr-4"><router-link to="/signup" class = "button" active-class="link--active" exact>新規登録</router-link></li> 
+              <li class="nav-item mr-1"><router-link to="/login" class="button" active-class="link--active" exact>ログイン</router-link></li>
+          </ul>
+        </template>
       </div>
     </nav>
   </div>

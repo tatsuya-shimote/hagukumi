@@ -3,6 +3,7 @@
       <v-col cols="auto">
         <v-dialog
             transition="dialog-top-transition"
+            v-model="dialog"
             max-width="350"
           >
           <template v-slot:activator="{ on, attrs }">
@@ -15,12 +16,13 @@
           </template>
           <template v-slot:default="dialog">
             <v-card min-width="350" max-height="800" class="hug-register">
-              <v-card-title>ハグの記録</v-card-title>
-              <div v-if="errors.length != 0">
-                <ul v-for="(e, index) in errors" :key="index">
-                  <li><font color="red">{{ e }}</font></li>
-                </ul>
-              </div>
+              <v-container>
+                <v-card-title>ハグの記録</v-card-title>
+                <div v-if="errors.length != 0">
+                  <ul v-for="(e, index) in errors" :key="index">
+                    <li><font color="red">{{ e }}</font></li>
+                  </ul>
+                </div>
                 <v-form
                   ref="form"
                   v-model="valid"
@@ -59,6 +61,7 @@
                   </v-btn>
               
                 </v-form>
+              </v-container>
             </v-card>
           </template>
         </v-dialog>
@@ -69,7 +72,7 @@
 <script>
 import axios from "axios"
   export default {
-    props:["hug"],
+    props:["hug", "dialog"],
     data(){
       return{
         valid: true,
@@ -96,10 +99,17 @@ import axios from "axios"
         this.$store.commit("calenderRecord", {name: `${this.hug.count}`, start: `${this.hug.year}-${this.hug.month}-${this.hug.date}`})
       },
       record(){
-        this.validate()
         this.postRecord()
         this.calenderRecord()
+        this.dialog = false
       }
     }
   }
 </script>
+
+<style scoped>
+.hug-record{
+  color: white;
+}
+  
+</style>

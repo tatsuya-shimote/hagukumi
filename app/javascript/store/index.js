@@ -16,19 +16,25 @@ export default new Vuex.Store({
     idToken: null,
     overlay: false,
     drawer: false,
-    events: [],
+    userId: null,
+    events: []
   },
   getters:{
-    idToken: state => state.idToken
+    idToken: state => state.idToken,
+    userId: state => state.userId
   },
   mutations: {
     
-    changeOverlay(state,overlay) {
-      state.overlay = overlay ;
+    changeOverlay(state) {
+      state.overlay = !state.overlay ;
     },
     
     changeDrawer(state) {
       state.drawer = !state.drawer;
+    },
+    
+    updateUserId(state, userId) {
+      state.userId = userId;
     },
     
     updateIdToken(state, idToken) {
@@ -60,7 +66,6 @@ export default new Vuex.Store({
           password: authData.password,
           returnSecureToken: true
         }).then(response => {
-          console.log(response)
           commit('updateIdToken', response.data.idToken)
           // dispatch('setAuthData', {
           //   idToken: response.data.idToken,
@@ -76,7 +81,6 @@ export default new Vuex.Store({
         password: authData.password,
         returnSecureToken: true
       }).then(response => {
-          console.log(response)
           commit('updateIdToken', response.data.idToken)
       });
     }

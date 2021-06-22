@@ -45,6 +45,7 @@ import axios from "axios"
         .then(response => {
           console.log(response.data)
           let e = response.data
+          this.$store.commit("updateUserId", e.user_id)
           alert(e.message)
           this.$router.push({ path: `/users/${e.user_id}`});
         })

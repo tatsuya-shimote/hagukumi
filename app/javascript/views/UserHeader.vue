@@ -66,7 +66,9 @@ export default {
     logout(){
       axios.delete(`/api/v1/sessions/${this.$route.params.id}`)
       .then(response => {
-        console.log(response)
+        alert(response.data.message)
+        this.$store.commit("updateUserId", null)
+        this.$store.commit("updateIdToken", null)
         this.changeDrawer()
         this.$router.push("/")
       })

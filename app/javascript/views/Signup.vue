@@ -54,6 +54,7 @@ import axios from "axios"
           .then(response => {
             alert("登録に成功しました。")
             let e = response.data;
+            this.$store.commit("updateUserId", e.id)
             this.$router.push({ path: `/users/${e.id}`});
           })
           .catch(error => {
