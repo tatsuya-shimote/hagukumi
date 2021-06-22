@@ -14,17 +14,40 @@
             >今日のハグを記録</v-btn>
           </template>
           <template v-slot:default="dialog">
-            <v-card min-width="350" height="250" class="hug-register">
+            <v-card min-width="350" max-height="800" class="hug-register">
               <v-card-title>ハグの記録</v-card-title>
+              <div v-if="errors.length != 0">
+                <ul v-for="(e, index) in errors" :key="index">
+                  <li><font color="red">{{ e }}</font></li>
+                </ul>
+              </div>
                 <v-form
                   ref="form"
                   v-model="valid"
                   lazy-validation
                 >
                   <v-text-field
+                    v-model="hug.year"
+                    :counter="4"
+                    label="年(西暦　ex:2021)"
+                  ></v-text-field>
+                  
+                  <v-text-field
+                    v-model="hug.month"
+                    :counter="2"
+                    label="月"
+                  ></v-text-field>
+                  
+                  <v-text-field
+                    v-model="hug.date"
+                    :counter="2"
+                    label="日"
+                  ></v-text-field>
+                  
+                  <v-text-field
                     v-model="hug.count"
                     :counter="10"
-                    label="今日のハグ数"
+                    label="今日のハグ数(数値のみ入力)"
                   ></v-text-field>
             
                   <v-btn
@@ -50,14 +73,17 @@ import axios from "axios"
     data(){
       return{
         valid: true,
+        errors:''
       }
     },
     methods:{
-      record(){
+      validate () {
+        this.$refs.form.validate()
+      },
+      postRecord(){
         axios.post(`/api/v1/hugs`,this.hug)
         .then(response => {
           console.log(response)
-          
         })
         .catch(error => {
             console.error(error);
@@ -65,7 +91,14 @@ import axios from "axios"
               this.errors = error.response.data.errors;
             }
           });
-        
+      },
+      calenderRecord(){
+        this.$store.commit("calenderRecord", {name: `${this.hug.count}`, start: `${this.hug.year}-${this.hug.month}-${this.hug.date}`})
+      },
+      record(){
+        this.validate()
+        this.postRecord()
+        this.calenderRecord()
       }
     }
   }

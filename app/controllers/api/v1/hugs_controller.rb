@@ -11,7 +11,7 @@ class Api::V1::HugsController < ApiController
     if @hug.save
       render json: @hug
     else
-      render json: {errors: "登録に失敗しました。"}
+      render json: { errors: @hug.errors.keys.map { |key| [key, @hug.errors.full_messages_for(key)]}.to_h }, status: :unprocessable_entity
     end
   end
   
@@ -21,7 +21,7 @@ class Api::V1::HugsController < ApiController
   private
   
   def hug_params
-    params.permit(:count, :user_id, :time)
+    params.permit(:count, :user_id, :year, :month, :date)
   end
   
 end

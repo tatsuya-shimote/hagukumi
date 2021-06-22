@@ -42,6 +42,7 @@ export default new Router({
             default: UserHome,
             header: UserHeader
         },
+        name: 'user-home'
         // beforeEnter(to, from, next) {
         //   if (store.getters.idToken) {
         //     next();

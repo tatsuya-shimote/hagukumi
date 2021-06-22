@@ -39,6 +39,12 @@
 import UserCalender from './UserCalender.vue'
 import HugRegisterDialog from './HugRegisterDialog.vue'
 import axios from "axios"
+
+let now = new Date()
+let year = now.getFullYear()
+let month = now.getMonth() + 1
+let date = now.getDate()
+
   export default {
     data(){
       return {
@@ -48,7 +54,10 @@ import axios from "axios"
         focus: '',
         dialog: false,
         hug: {
-          count: Number(),
+          count: 3,
+          year: year,
+          month: month,
+          date: date
         },
         
         }

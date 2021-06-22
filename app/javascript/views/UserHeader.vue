@@ -67,6 +67,7 @@ export default {
       axios.delete(`/api/v1/sessions/${this.$route.params.id}`)
       .then(response => {
         console.log(response)
+        this.changeDrawer()
         this.$router.push("/")
       })
     },

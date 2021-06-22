@@ -35,20 +35,20 @@ export default new Vuex.Store({
       state.idToken = idToken;
     },
     
+    calenderRecord(state, newRecord){
+      state.events.push(newRecord)
+    },
+    
     loadUserHugInfo(state){
       axios.get("/api/v1/hugs.json")
         .then(response => {
           const e = response.data;
           Object.keys(e).forEach(key => {
             const userHugInfo = e[key]
-            state.events.push({name: `${userHugInfo.count}`, start: "2021-06-19"})
+            state.events.push({name: `${userHugInfo.count}`, start: `${userHugInfo.year}-${userHugInfo.month}-${userHugInfo.date}`})
           })
         })
     },
-    
-    inputUserHugInfo(state, hugCount){
-      state.events.push({name: hugCount, start: "2021-06-21"})
-    }
   },
   
   actions: {
@@ -80,18 +80,5 @@ export default new Vuex.Store({
           commit('updateIdToken', response.data.idToken)
       });
     }
-    
-    // setAuthData({ commit, dispatch }, authData) {
-    //   const now = new Date();
-    //   const expiryTimeMs = now.getTime() + authData.expiresIn * 1000;
-    //   commit('updateIdToken', authData.idToken);
-    //   localStorage.setItem('idToken', authData.idToken);
-    //   localStorage.setItem('expiryTimeMs', expiryTimeMs);
-    //   localStorage.setItem('refreshToken', authData.refreshToken);
-      // setTimeout(() => {
-      //   dispatch('refreshIdToken', authData.refreshToken);
-      // }, authData.expiresIn * 1000);
-    // }
-    
   }
 });
