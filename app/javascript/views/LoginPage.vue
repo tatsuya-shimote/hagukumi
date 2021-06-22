@@ -4,11 +4,9 @@
       <div class="col-md-6 offset-md-3 login-form">
         <h2 class = "text-center">ログイン</h2>
          <form @submit.prevent = "login">
-           <div v-if="errors.length != 0">
-              <ul v-for="e in errors" :key="e">
-                <li><font color="red">{{ e }}</font></li>
-              </ul>
-            </div>
+          <div v-if="errors.length != 0">
+            <li><font color="red">{{ errors }}</font></li>
+          </div>
           <label for="session_email">メールアドレス</label>
           <input class="form-control" type="email" v-model="user.email">
     
@@ -47,14 +45,8 @@ import axios from "axios"
         .then(response => {
           console.log(response.data)
           let e = response.data
-          if(e.judge){
-            alert(e.message)
-            this.$router.push({ path: `/users/${e.user_id}`});
-          }else{
-            alert(e.message)
-            this.$router.go(0)
-          }
-          
+          alert(e.message)
+          this.$router.push({ path: `/users/${e.user_id}`});
         })
         .catch(error => {
           console.error(error)

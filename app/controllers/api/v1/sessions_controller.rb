@@ -3,11 +3,10 @@ class Api::V1::SessionsController < ApiController
     user = User.find_by(email: params[:email])
     if user && user.authenticate(params[:password])
       session[:user_id] = user.id
-      payload = {message: "ログインに成功しました。", user_id: user.id, judge: true}
+      render json: {message: "ログインに成功しました。", user_id: user.id}
     else
-      payload = {message: "メールアドレスまたはパスワードが違います。", judge: false}
+      render json: {errors: "メールアドレスまたはパスワードが違います。"}, status: :unprocessable_entity
     end
-    render json: payload
     
   end
   

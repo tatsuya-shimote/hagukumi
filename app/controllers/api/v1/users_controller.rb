@@ -17,7 +17,7 @@ class Api::V1::UsersController < ApiController
     if @user && @user == @current_user
       payload = @user
     else
-      payload = {message: "メールアドレスまたはパスワードが違います。", judge: true}
+      payload = {message: "メールアドレスまたはパスワードが違います。"}
     end
       render json: payload
   end
