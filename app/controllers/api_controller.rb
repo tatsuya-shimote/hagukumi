@@ -1,6 +1,6 @@
 class ApiController < ActionController::API
   # include ActionController::Cookies
-  before_action :check_xhr_header, only: [:cerate]
+  before_action :check_xhr_header, only: [:cerate, :update]
   private
 
   def require_login

@@ -9,7 +9,7 @@
     </transition>
     <transition name="fade" mode="out-in" appear>
       <v-container id="start-to-hugkumi">
-        <h4 id="login-text">Hugの数だけ幸せになれる。あなたの幸せのために...</h4>
+        <h4 id="login-text">Hugの数だけ幸せになれる...</h4>
         <v-btn color="#F8BBD0"><router-link to='/login' id="login-btn">迷わず始める</router-link></v-btn>
       </v-container>
     </transition>
@@ -112,7 +112,7 @@
   text-align: center;
   padding-top: 200px;
   box-sizing: border-box;
-  background-image: url('../images/hagukumi_top_image.jpeg');
+      background-image: url('../images/hagukumi_top_image.2.jpeg');
   background-size: cover;
   background-color: rgba(255,255,255,0.4);
   background-blend-mode: lighten;
@@ -144,9 +144,9 @@
   font-family: 'Shippori Mincho', serif;
   color: #ffffff;
   letter-spacing: 3px;
-  font-size: 18px;
+  font-size: 22px;
   font-weight: 600;
-  line-height: 100px;
+  line-height: 100px
 }
 
 #login-btn{
@@ -158,6 +158,12 @@
   font-size: 20px;
   font-weight: 600;
   border-bottom: 3px solid rgba(249,203,118,0.8);
+}
+
+@media screen and (min-width:768px) { 
+  #app-title{
+    background-image: url('../images/hagukumi_top_image.jpeg');
+  }
 }
 
 </style>

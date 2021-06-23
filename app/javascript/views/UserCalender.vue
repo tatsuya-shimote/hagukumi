@@ -157,7 +157,7 @@ import axios from "axios"
         nativeEvent.stopPropagation()
       },
       updateHugRecord(){
-        axios.patch(`/api/v1/hugs/${this.hug.hugId}.json`, this.hug)
+        axios.patch(`/api/v1/hugs/${this.hug.hugId}.json`, this.hug, {headers: { 'X-Requested-With': 'XMLHttpRequest' }}, {withCredentials: true})
         .then(response => {
           console.log(response)
         }).catch(error => {
