@@ -28,7 +28,7 @@
             <v-list-item>
               <v-list-item-content>
                 <v-list-item-title>
-                  <a class = "button" active-class="link--active" @click="changeBoolean">記録カレンダー</a>
+                  <a class = "button" active-class="link--active" @click="calenderOpen">記録カレンダー</a>
                 </v-list-item-title>
               </v-list-item-content>
             </v-list-item>
@@ -69,13 +69,13 @@ export default {
         alert(response.data.message)
         this.$store.commit("updateUserId", null)
         this.$store.commit("updateIdToken", null)
-        this.resetEvents()
+        this.$store.commit("resetEvents")
         this.changeDrawer()
         this.$router.push("/")
       })
     },
     
-    changeBoolean(){
+    calenderOpen(){
       this.changeDrawer()
       this.changeOverlay()
     },

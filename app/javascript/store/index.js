@@ -45,6 +45,10 @@ export default new Vuex.Store({
       state.events = []
     },
     
+    deleteEvent(state, hugId){
+      state.events = state.events.filter(event => event.hug_id !== hugId)
+    },
+    
     calenderRecord(state, newRecord){
       state.events.push(newRecord)
     },

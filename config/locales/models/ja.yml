@@ -1,0 +1,14 @@
+ja:
+  activerecord:
+    attributes: #属性の言語を変える。
+      hug: #モデル名
+        count: ハグの回数 #属性名
+        year: 年(西暦)
+        month: 月
+        date: 日
+      user:
+        name: 名前
+        email: メールアドレス
+        password: パスワード
+        password_confirmation: パスワード確認
+      

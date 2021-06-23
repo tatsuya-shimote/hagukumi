@@ -11,7 +11,7 @@
               color="blue"
               v-bind="attrs"
               v-on="on"
-              class="hug-record"
+              id="hug-record"
             >今日のハグを記録</v-btn>
           </template>
           <template v-slot:default="dialog">
@@ -31,6 +31,7 @@
                   <v-text-field
                     v-model="hug.year"
                     :counter="4"
+                    disabled
                     label="年(西暦　ex:2021)"
                   ></v-text-field>
                   
@@ -56,6 +57,7 @@
                     color="blue"
                     class="mr-4"
                     @click="record"
+                    id = "record"
                   >
                     記録
                   </v-btn>
@@ -89,7 +91,7 @@ import axios from "axios"
         .then(response => {
           const e = response.data
           this.dialog = false
-          this.$store.commit("calenderRecord", {name: `${e.count}`, start: `${e.year}-${e.month}-${e.date}`, color: "blue", hug_id: `${e.hugId}`})
+          this.$store.commit("calenderRecord", {name: `${e.count}`, start: `${e.year}-${e.month}-${e.date}`, color: "blue", hug_id: `${e.id}`})
           this.errors = ''
         })
         .catch(error => {
@@ -105,7 +107,11 @@ import axios from "axios"
 </script>
 
 <style scoped>
-.hug-record{
+#hug-record{
+  color: white;
+}
+
+#record{
   color: white;
 }
   

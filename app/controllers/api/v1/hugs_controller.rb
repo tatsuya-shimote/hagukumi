@@ -16,7 +16,7 @@ class Api::V1::HugsController < ApiController
   end
   
   def update
-    @hug = @current_user.hugs.find_by(params[:id])
+    @hug = @current_user.hugs.find_by(id: params[:id])
     if (@hug && @hug.update(hug_params))
       render json: @hug
     else
@@ -24,7 +24,10 @@ class Api::V1::HugsController < ApiController
     end
   end
   
-  
+  def destroy
+    @hug = @current_user.hugs.find_by(id: params[:id])
+    @hug.destroy!
+  end
   
   private
   

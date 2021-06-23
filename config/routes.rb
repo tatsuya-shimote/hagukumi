@@ -4,7 +4,7 @@ Rails.application.routes.draw do
     namespace :v1 do
       resources :users, only: [:show, :create] 
       resources :sessions, only: [:create, :destroy]
-      resources :hugs, only: [:index, :create, :update]
+      resources :hugs, only: [:index, :create, :update, :destroy]
     end
   end
   get '*path', to: 'top_pages#index'

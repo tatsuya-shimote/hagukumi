@@ -77,7 +77,7 @@
               <v-btn
                 text
                 color="red"
-                @click="selectedOpen = false"
+                @click="deletes"
               >
                 削除
               </v-btn>
@@ -99,6 +99,7 @@
 <script>
 import axios from "axios"
   export default {
+    props:["hug"],
     data: () => ({
       focus: '',
       dialog: false,
@@ -106,13 +107,13 @@ import axios from "axios"
       selectedEvent: {},
       selectedElement: null,
       selectedOpen: false,
-      hug: {
-          count: "",
-          year: "",
-          month: "",
-          date: "",
-          hugId: ""
-        },
+      // hug: {
+      //     count: "",
+      //     year: "",
+      //     month: "",
+      //     date: "",
+      //     hugId: ""
+      //   },
       errors:""
       
     }),
@@ -165,6 +166,23 @@ import axios from "axios"
             this.errors = error.response.data.errors;
           }
         })
+      },
+      deleteHugRecord(id){
+        axios.delete(`/api/v1/hugs/${id}`)
+        .then(response => {
+          console.log(response)
+          this.selectedOpen = false
+        }).catch(error => {
+          console.error(error)
+          if (error.response.data && error.response.data.errors) {
+            this.errors = error.response.data.errors;
+          }
+        })
+      },
+      deletes(){
+        const hugId = this.hug.hugId
+        this.deleteHugRecord(hugId)
+        this.$store.commit("deleteEvent", hugId)
       }
     }
   }

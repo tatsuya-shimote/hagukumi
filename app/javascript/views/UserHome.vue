@@ -29,7 +29,7 @@
         閉じる
       </v-btn>
       <HugRegisterDialog :hug="hug"></HugRegisterDialog>
-      <UserCalender></UserCalender>
+      <UserCalender :hug="hug"></UserCalender>
     </v-overlay>
     </v-app>
   </div>
