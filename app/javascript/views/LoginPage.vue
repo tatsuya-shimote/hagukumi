@@ -41,9 +41,8 @@ import axios from "axios"
         this.loginAuth()
       },
       loginApiPost(){
-        axios.post(`/api/v1/sessions`, this.user)
+        axios.post(`/api/v1/sessions`, this.user, {headers: { 'X-Requested-With': 'XMLHttpRequest' }}, {withCredentials: true})
         .then(response => {
-          console.log(response.data)
           let e = response.data
           this.$store.commit("updateUserId", e.user_id)
           alert(e.message)

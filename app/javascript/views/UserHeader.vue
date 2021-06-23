@@ -69,7 +69,7 @@ export default {
         alert(response.data.message)
         this.$store.commit("updateUserId", null)
         this.$store.commit("updateIdToken", null)
-        this.$store.commit("resetEvents")
+        this.resetEvents()
         this.changeDrawer()
         this.$router.push("/")
       })

@@ -15,8 +15,16 @@ class Api::V1::HugsController < ApiController
     end
   end
   
-  # def edit
-  # end
+  def update
+    @hug = @current_user.hugs.find_by(params[:id])
+    if (@hug && @hug.update(hug_params))
+      render json: @hug
+    else
+      render json: {errors: "保存に失敗しました。もう一度入力してください。 "}, status: :unprocessable_entity
+    end
+  end
+  
+  
   
   private
   

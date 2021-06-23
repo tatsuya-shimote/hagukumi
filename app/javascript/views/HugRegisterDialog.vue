@@ -72,10 +72,11 @@
 <script>
 import axios from "axios"
   export default {
-    props:["hug", "dialog"],
+    props:["hug"],
     data(){
       return{
         valid: true,
+        dialog: false,
         errors:''
       }
     },
@@ -83,10 +84,13 @@ import axios from "axios"
       validate () {
         this.$refs.form.validate()
       },
-      postRecord(){
-        axios.post(`/api/v1/hugs`,this.hug)
+      record(){
+        axios.post(`/api/v1/hugs`,this.hug, {headers: { 'X-Requested-With': 'XMLHttpRequest' }}, {withCredentials: true})
         .then(response => {
-          console.log(response)
+          const e = response.data
+          this.dialog = false
+          this.$store.commit("calenderRecord", {name: `${e.count}`, start: `${e.year}-${e.month}-${e.date}`, color: "blue", hug_id: `${e.hugId}`})
+          this.errors = ''
         })
         .catch(error => {
             console.error(error);
@@ -95,16 +99,9 @@ import axios from "axios"
             }
           });
       },
-      calenderRecord(){
-        this.$store.commit("calenderRecord", {name: `${this.hug.count}`, start: `${this.hug.year}-${this.hug.month}-${this.hug.date}`})
-      },
-      record(){
-        this.postRecord()
-        this.calenderRecord()
-        this.dialog = false
-      }
     }
   }
+  
 </script>
 
 <style scoped>

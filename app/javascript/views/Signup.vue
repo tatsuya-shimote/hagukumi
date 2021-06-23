@@ -50,7 +50,7 @@ import axios from "axios"
       },
       signUp: function() {
         axios
-          .post('/api/v1/users', this.user)
+          .post('/api/v1/users', this.user,  {headers: { 'X-Requested-With': 'XMLHttpRequest' }}, {withCredentials: true})
           .then(response => {
             alert("登録に成功しました。")
             let e = response.data;

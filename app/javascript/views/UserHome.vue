@@ -52,12 +52,12 @@ let date = now.getDate()
         absolute: true,
         user: {},
         focus: '',
-        dialog: false,
         hug: {
           count: 3,
           year: year,
           month: month,
-          date: date
+          date: date,
+          hugId: ""
         },
         
         }

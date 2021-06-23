@@ -55,7 +55,7 @@ export default new Vuex.Store({
           const e = response.data;
           Object.keys(e).forEach(key => {
             const userHugInfo = e[key]
-            state.events.push({name: `${userHugInfo.count}`, start: `${userHugInfo.year}-${userHugInfo.month}-${userHugInfo.date}`})
+            state.events.push({name: `${userHugInfo.count}`, start: `${userHugInfo.year}-${userHugInfo.month}-${userHugInfo.date}`, color: "blue", hug_id: `${userHugInfo.id}`})
           })
         })
     },
