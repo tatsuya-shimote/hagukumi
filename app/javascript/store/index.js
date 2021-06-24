@@ -6,22 +6,20 @@ import axiosAuth from '../axios_auth.js'
 
 Vue.use(Vuex);
 
-let now = new Date()
-let year = now.getFullYear()
-let month = now.getMonth() + 1
-let date = now.getDate()
-
 export default new Vuex.Store({
   state: {
     idToken: null,
     overlay: false,
     drawer: false,
     userId: null,
+    user:{},
     events: []
   },
   getters:{
     idToken: state => state.idToken,
-    userId: state => state.userId
+    userId: state => state.userId,
+    user: state => state.user,
+    userHugCount: state => state.user.hug_count_sum
   },
   mutations: {
     
@@ -41,8 +39,16 @@ export default new Vuex.Store({
       state.idToken = idToken;
     },
     
+    updateUser(state, user){
+      state.user = user;
+    },
+    
+    updateHugCountSum(state,  hugCountSum){
+      state.user.hug_count_sum = hugCountSum;
+    },
+    
     resetEvents(state){
-      state.events = []
+      state.events = [];
     },
     
     deleteEvent(state, hugId){
@@ -51,6 +57,18 @@ export default new Vuex.Store({
     
     calenderRecord(state, newRecord){
       state.events.push(newRecord)
+    },
+    
+    sumHugCount(state, hugCount){
+      state.user.hug_count_sum = state.user.hug_count_sum + hugCount;
+    },
+    
+    // editHugCount(state, hugCount){
+    //   state.user.hug_count_sum = state.user.hug_count_sum + hugCount;
+    // },
+    
+    subtractionHugCount(state, hugCount){
+      state.user.hug_count_sum = state.user.hug_count_sum - hugCount;
     },
     
     loadUserHugInfo(state){

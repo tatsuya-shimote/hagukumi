@@ -74,7 +74,7 @@
 <script>
 import axios from "axios"
   export default {
-    props:["hug"],
+    props:["hug", "user"],
     data(){
       return{
         valid: true,
@@ -91,6 +91,7 @@ import axios from "axios"
         .then(response => {
           const e = response.data
           this.dialog = false
+          this.$store.commit("sumHugCount", e.count)
           this.$store.commit("calenderRecord", {name: `${e.count}`, start: `${e.year}-${e.month}-${e.date}`, color: "blue", hug_id: `${e.id}`})
           this.errors = ''
         })

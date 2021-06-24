@@ -4,13 +4,13 @@
     <transition name="fade" mode="out-in" appear>
       <div class = "container">
         <h3 id="home-message">
-          {{user.name}}さん, 今日もお疲れ様です。<br>
+          {{this.$store.getters.user.name}}さん, 今日もお疲れ様です。<br>
           ハグをして少し休みましょう。
         </h3>
         <div class="card" style="width: 18rem;">
           <div class="card-body">
             <h3 class="card-title">現在の<br>幸福度</h3>
-            <p class="card-text">100</p>
+            <p class="card-text">{{this.$store.getters.user.hug_count_sum}}pt</p>
               <HugRegisterDialog :hug="hug"></HugRegisterDialog>
           </div>
         </div>
@@ -79,10 +79,10 @@ let date = now.getDate()
       axios.get(`/api/v1/users/${this.$route.params.id}.json`)
       .then(response => {
         const e = response.data
-        if(e.judge){
-          this.$router.push("/login");
-        }
-        this.user = response.data //これ本番はまずい書き方？password_digestまでわかる。
+        console.log(e)
+        this.$store.commit("updateUser", e)
+      }).catch(error => {
+        this.$router.push("/login");
       })
     },
     mounted(){

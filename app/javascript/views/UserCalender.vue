@@ -107,14 +107,8 @@ import axios from "axios"
       selectedEvent: {},
       selectedElement: null,
       selectedOpen: false,
-      // hug: {
-      //     count: "",
-      //     year: "",
-      //     month: "",
-      //     date: "",
-      //     hugId: ""
-      //   },
-      errors:""
+      errors:"",
+      prepareEditHugCount:""
       
     }),
     mounted () {
@@ -135,57 +129,64 @@ import axios from "axios"
       },
       showEvent ({ nativeEvent, event }) {
         const open = () => {
-          this.selectedEvent = event
-          console.log(event)
-          const dateTime = event.start.split("-")
-          this.hug.count = this.selectedEvent.name
-          this.hug.year = dateTime[0]
-          this.hug.month = dateTime[1]
-          this.hug.date = dateTime[2]
-          this.hug.hugId = this.selectedEvent.hug_id
-          this.selectedElement = nativeEvent.target
-          requestAnimationFrame(() => requestAnimationFrame(() => this.selectedOpen = true))
-        }
+          this.selectedEvent = event;
+          console.log(event);
+          const dateTime = event.start.split("-");
+          this.hug.count = this.selectedEvent.name;
+          this.hug.year = dateTime[0];
+          this.hug.month = dateTime[1];
+          this.hug.date = dateTime[2];
+          this.hug.hugId = this.selectedEvent.hug_id;
+          this.prepareEditHugCount = this.$store.getters.userHugCount - this.hug.count;
+          this.selectedElement = nativeEvent.target;
+          requestAnimationFrame(() => requestAnimationFrame(() => this.selectedOpen = true));
+        };
 
         if (this.selectedOpen) {
-          this.selectedOpen = false
-          requestAnimationFrame(() => requestAnimationFrame(() => open()))
+          this.selectedOpen = false;
+          requestAnimationFrame(() => requestAnimationFrame(() => open()));
         } else {
-          open()
+          open();
         }
 
-        nativeEvent.stopPropagation()
+        nativeEvent.stopPropagation();
       },
       updateHugRecord(){
         axios.patch(`/api/v1/hugs/${this.hug.hugId}.json`, this.hug, {headers: { 'X-Requested-With': 'XMLHttpRequest' }}, {withCredentials: true})
         .then(response => {
-          console.log(response)
+          console.log(response);
+          const editHugCount = this.prepareEditHugCount + response.data.count;
+          this.$store.commit("updateHugCountSum", editHugCount);
         }).catch(error => {
           console.error(error)
           if (error.response.data && error.response.data.errors) {
             this.errors = error.response.data.errors;
           }
-        })
+        });
       },
       deleteHugRecord(id){
         axios.delete(`/api/v1/hugs/${id}`)
         .then(response => {
-          console.log(response)
-          this.selectedOpen = false
+          console.log(response);
+          this.selectedOpen = false;
         }).catch(error => {
-          console.error(error)
+          console.error(error);
           if (error.response.data && error.response.data.errors) {
             this.errors = error.response.data.errors;
           }
-        })
+        });
       },
       deletes(){
-        const hugId = this.hug.hugId
-        this.deleteHugRecord(hugId)
-        this.$store.commit("deleteEvent", hugId)
+        this.$store.commit("subtractionHugCount", this.hug.count);
+        const hugId = this.hug.hugId;
+        this.deleteHugRecord(hugId);
+        this.$store.commit("deleteEvent", hugId);
       }
-    }
-  }
+    },
+    // cancel(){
+    //   const  originHugCount = this.HugCount 
+    // }
+  };
 </script>
 
 

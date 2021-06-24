@@ -13,13 +13,13 @@ class Api::V1::UsersController < ApiController
   # end
 
   def show
-    @user = User.find_by(id: params[:id])
-    if @user && @user == @current_user
-      payload = @user
+    user = User.find_by(id: params[:id])
+    if user && user == @current_user
+      hugs_point = Hug.where("user_id = :user_id",{user_id: params[:id]}).sum(:count)
+      render json: {name: user.name, hug_count_sum: hugs_point}
     else
-      payload = {message: "メールアドレスまたはパスワードが違います。"}
+      render json: {message: "メールアドレスまたはパスワードが違います。"}, status: :unprocessable_entity
     end
-      render json: payload
   end
 
   def create
