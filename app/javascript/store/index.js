@@ -17,6 +17,7 @@ export default new Vuex.Store({
   },
   getters:{
     idToken: state => state.idToken,
+    events: state => state.events,
     userId: state => state.userId,
     user: state => state.user,
     userHugCount: state => state.user.hug_count_sum
@@ -46,6 +47,10 @@ export default new Vuex.Store({
     updateHugCountSum(state,  hugCountSum){
       state.user.hug_count_sum = hugCountSum;
     },
+    
+    // updateHugCount(state, hugCount){
+      
+    // },
     
     resetEvents(state){
       state.events = [];

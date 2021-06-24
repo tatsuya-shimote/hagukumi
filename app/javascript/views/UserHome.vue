@@ -14,7 +14,7 @@
               <HugRegisterDialog :hug="hug"></HugRegisterDialog>
           </div>
         </div>
-        <p class="comment">コメント：とても幸せですね。その幸せを大切に，感謝を忘れずに</p>
+        <p class="comment">とても幸せですね。その幸せを大切に，感謝を忘れずに</p>
         <img src="../images/hagukumi_icon.png" id = "app-icon">
       </div>
     </transition>
@@ -134,5 +134,9 @@ let date = now.getDate()
 
 .hug-record{
   color: white;
+}
+
+.comment{
+  font-family: 'Shippori Mincho', serif;
 }
 </style>

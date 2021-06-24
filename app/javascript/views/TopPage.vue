@@ -21,8 +21,8 @@
       >
       <transition name="slide" mode="out-in">
         <div class = "container sub-section">
-          <h2>あなたのハグの習慣化の手助けをします。</h2>
-          <p>このアプリはあなたの１日のハグ時間を記録し，現在のあなたの幸福度を１００点満点で計算します。</p>
+          <h2>あなたのHugの習慣化の手助けをします。</h2>
+          <p>あなたは１日のハグを記録するだけ。ハグの回数に応じて幸せポイントが貯まっていきます。</p>
         </div>
       </transition>
     </v-lazy>
@@ -48,11 +48,10 @@
       >
       <transition name="slide" mode="out-in">
       <div class="container sub-section">
-        <h2>日本の幸福度ランキングは右肩下がり！！</h2>
+        <h2>Hugは誰といつするのか？</h2>
           <p>
-            日本は世界幸福度ランキング５８位。主要先進国G7の中では圧倒的に低い順位である。
-            上位を占める国は北欧であり，このことから日本に足りないことが明らかになった。
-            <span>それはハグだ</span>
+            家族，恋人，ペット，ぬいぐるみ，枕などなど自分が安心できるものにハグしましょう。
+            気持ちが落ち込んだ時，嬉しいことがあったとき，不安なとき，ハグをすることで安心感を得たり，喜びを共有することができます。
           </p>
       </div>
       </transition>
@@ -127,6 +126,7 @@
 }
 
 .sub-section{
+  font-family: 'Shippori Mincho', serif;
   margin-top: 80px;
   color: #4c4c61;
 }
