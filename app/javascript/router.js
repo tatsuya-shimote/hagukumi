@@ -6,7 +6,9 @@ const TopHeader = () => import(/* webpackChunkName: "TopHeader" */'./views/TopHe
 const Signup = () => import(/* webpackChunkName: "Signup" */'./views/Signup.vue') 
 const LoginPage = () => import(/* webpackChunkName: "LoginPage" */'./views/LoginPage.vue') 
 const UserHome = () => import(/* webpackChunkName: "UserHome" */'./views/UserHome.vue') 
-const UserHeader = () => import(/* webpackChunkName: "UserHeader" */'./views/UserHeader.vue') 
+const UserHeader = () => import(/* webpackChunkName: "UserHeader" */'./views/UserHeader.vue')
+const UserProfileEdit = () => import(/* webpackChunkName: "UserProfileEdit" */'./views/UserProfileEdit.vue')
+const UserProfileHeader = () => import(/* webpackChunkName: "UserProfileHeader" */'./views/UserProfileHeader.vue')
 Vue.use(Router);
 
 export default new Router({
@@ -50,6 +52,14 @@ export default new Router({
         //     next('/login');
         //   }
         // }
+      },
+      {
+        path: "/users/:id/edit",
+        components: {
+            default: UserProfileEdit,
+            header: UserProfileHeader
+        },
+        name: 'edit_path'
       }
     ]
 })

@@ -4,6 +4,7 @@
       <div class="container-fluid" @click='resetEvents'>
         <router-link to="/" class="navbar-brand" active-class="link--active" exact>Hugクミ</router-link>
       </div>
+      
       <v-app-bar-nav-icon @click.stop="changeDrawer"></v-app-bar-nav-icon>
     </nav>
     <v-navigation-drawer
@@ -29,6 +30,13 @@
               <v-list-item-content>
                 <v-list-item-title>
                   <a class = "button" active-class="link--active" @click="calenderOpen">記録カレンダー</a>
+                </v-list-item-title>
+              </v-list-item-content>
+            </v-list-item>
+            <v-list-item>
+              <v-list-item-content>
+                <v-list-item-title>
+                  <a class = "button" active-class="link--active" @click="profileEdit">プロフィール編集</a>
                 </v-list-item-title>
               </v-list-item-content>
             </v-list-item>
@@ -82,6 +90,11 @@ export default {
     
     resetEvents(){
       this.$store.commit("resetEvents")
+    },
+    
+    profileEdit(){
+      this.changeDrawer()
+      this.$router.push(`/users/${this.$route.params.id}/edit`)
     }
     
   }

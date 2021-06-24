@@ -4,8 +4,8 @@
     <transition name="fade" mode="out-in" appear>
       <div class = "container">
         <h3 id="home-message">
-          {{this.$store.getters.user.name}}さん, 今日もお疲れ様です。<br>
-          ハグをして少し休みましょう。
+          {{this.$store.getters.user.name}}さん,お疲れ様です。<br>
+          Hugをして休みましょう。
         </h3>
         <div class="card" style="width: 18rem;">
           <div class="card-body">

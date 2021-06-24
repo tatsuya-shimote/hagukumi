@@ -63,9 +63,6 @@ export default new Vuex.Store({
       state.user.hug_count_sum = state.user.hug_count_sum + hugCount;
     },
     
-    // editHugCount(state, hugCount){
-    //   state.user.hug_count_sum = state.user.hug_count_sum + hugCount;
-    // },
     
     subtractionHugCount(state, hugCount){
       state.user.hug_count_sum = state.user.hug_count_sum - hugCount;
