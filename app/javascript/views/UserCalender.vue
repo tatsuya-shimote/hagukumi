@@ -154,9 +154,11 @@ import axios from "axios"
       updateHugRecord(){
         axios.patch(`/api/v1/hugs/${this.hug.hugId}.json`, this.hug, {headers: { 'X-Requested-With': 'XMLHttpRequest' }}, {withCredentials: true})
         .then(response => {
-          console.log(response);
+          const e = response.data
+          this.$store.commit("updateHugCount", e)
           const editHugCount = this.prepareEditHugCount + response.data.count;
           this.$store.commit("updateHugCountSum", editHugCount);
+          this.selectedOpen = false;
         }).catch(error => {
           console.error(error)
           if (error.response.data && error.response.data.errors) {
@@ -167,7 +169,6 @@ import axios from "axios"
       deleteHugRecord(id){
         axios.delete(`/api/v1/hugs/${id}`)
         .then(response => {
-          console.log(response);
           this.selectedOpen = false;
         }).catch(error => {
           console.error(error);
@@ -183,9 +184,7 @@ import axios from "axios"
         this.$store.commit("deleteEvent", hugId);
       }
     },
-    // cancel(){
-    //   const  originHugCount = this.HugCount 
-    // }
+   
   };
 </script>
 

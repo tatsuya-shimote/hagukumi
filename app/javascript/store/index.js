@@ -48,9 +48,9 @@ export default new Vuex.Store({
       state.user.hug_count_sum = hugCountSum;
     },
     
-    // updateHugCount(state, hugCount){
-      
-    // },
+    updateHugCount(state, hug){
+      state.events.find(el => el.hug_id === String(hug.id)).name = String(hug.count)
+    },
     
     resetEvents(state){
       state.events = [];
@@ -67,7 +67,6 @@ export default new Vuex.Store({
     sumHugCount(state, hugCount){
       state.user.hug_count_sum = state.user.hug_count_sum + hugCount;
     },
-    
     
     subtractionHugCount(state, hugCount){
       state.user.hug_count_sum = state.user.hug_count_sum - hugCount;

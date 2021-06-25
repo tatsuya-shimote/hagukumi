@@ -79,7 +79,6 @@ let date = now.getDate()
       axios.get(`/api/v1/users/${this.$route.params.id}.json`)
       .then(response => {
         const e = response.data
-        console.log(e)
         this.$store.commit("updateUser", e)
       }).catch(error => {
         this.$router.push("/login");
