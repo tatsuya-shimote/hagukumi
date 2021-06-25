@@ -30,7 +30,7 @@ class Api::V1::UsersController < ApiController
     if (@current_user && @current_user.update(user_edit_params))
       render json: {message: "プロフィールを変更しました"}
     else
-      render json: {errors: "保存に失敗しました。もう一度入力してください。 "}, status: :unprocessable_entity
+      render json: {errors: @current_user.errors.full_messages}, status: :unprocessable_entity
     end
   end
 

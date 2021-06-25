@@ -33,12 +33,13 @@
   border-bottom: solid 1px rgba(0,0,0,0.7);
 }
 .button {
-  margin-right: 10px;
+  margin-right: 5px;
   display: inline-block;
   position: relative;
   overflow: hidden;
   color: #000;
   text-decoration: none;
+  top: 3px;
 }
 
 .button:after {

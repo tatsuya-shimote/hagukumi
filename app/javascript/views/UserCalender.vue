@@ -50,21 +50,18 @@
               </v-btn>
               <v-toolbar-title>編集・削除</v-toolbar-title>
               <v-spacer></v-spacer>
-              <v-btn icon>
-                <v-icon>mdi-heart</v-icon>
-              </v-btn>
-              <v-btn icon>
-                <v-icon>mdi-dots-vertical</v-icon>
-              </v-btn>
             </v-toolbar>
             <v-card-text>
               <div v-if="errors.length != 0">
-                <ul v-for="(e, index) in errors" :key="index">
-                  <li><font color="red">{{ e }}</font></li>
-                </ul>
+                <font color="red">{{ errors }}</font>
               </div>
-              <span>{{hug.count}}</span>
-              <input v-model="hug.count">
+              <v-text-field
+                v-model="hug.count"
+                filled
+                color="blue"
+                label="回数の修正(半角数字のみ)"
+                clearable
+              ></v-text-field>
             </v-card-text>
             <v-card-actions>
               <v-btn
@@ -130,7 +127,6 @@ import axios from "axios"
       showEvent ({ nativeEvent, event }) {
         const open = () => {
           this.selectedEvent = event;
-          console.log(event);
           const dateTime = event.start.split("-");
           this.hug.count = this.selectedEvent.name;
           this.hug.year = dateTime[0];
@@ -159,6 +155,7 @@ import axios from "axios"
           const editHugCount = this.prepareEditHugCount + response.data.count;
           this.$store.commit("updateHugCountSum", editHugCount);
           this.selectedOpen = false;
+          this.errors = ""
         }).catch(error => {
           console.error(error)
           if (error.response.data && error.response.data.errors) {

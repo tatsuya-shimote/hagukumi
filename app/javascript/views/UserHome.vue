@@ -1,6 +1,6 @@
 <template>
   <div>
-    <v-app>
+    
     <transition name="fade" mode="out-in" appear>
       <div class = "container">
         <h3 id="home-message">
@@ -23,15 +23,16 @@
       :value="this.$store.state.overlay"
     >
       <v-btn
-        color="primary"
+        color="green"
         @click="changeOverlay"
+        id="close"
       >
         閉じる
       </v-btn>
       <HugRegisterDialog :hug="hug"></HugRegisterDialog>
       <UserCalender :hug="hug"></UserCalender>
     </v-overlay>
-    </v-app>
+   
   </div>
 </template>
 
@@ -137,5 +138,10 @@ let date = now.getDate()
 
 .comment{
   font-family: 'Shippori Mincho', serif;
+}
+
+#close{
+  position: relative;
+  top: 48px;
 }
 </style>

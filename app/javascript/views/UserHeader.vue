@@ -11,17 +11,19 @@
         :value="this.$store.state.drawer"
         absolute
         right
-        mobile-breakpoint="400"
+        mobile-breakpoint="100"
         bottom
         temporary
       >
-      <v-card
-        class="mx-auto"
-        max-width="300"
-        tile
-      >
         <v-list flat>
-          <v-subheader>ユーザーメニュー</v-subheader>
+          <v-subheader>
+            ユーザーメニュー
+            <v-avatar color="indigo" id="user-avater">
+              <v-icon dark>
+                mdi-account-circle
+              </v-icon>
+            </v-avatar>
+          </v-subheader>
           <v-list-item-group
             v-model="selectedItem"
             color="primary"
@@ -29,27 +31,36 @@
             <v-list-item>
               <v-list-item-content>
                 <v-list-item-title>
-                  <a class = "button" active-class="link--active" @click="calenderOpen">記録カレンダー</a>
+                  <v-icon color="primary">mdi-calendar-month</v-icon>
+                  <a class = "button" active-class="link--active" @click="calenderOpen">
+                    記録カレンダー
+                  </a>
                 </v-list-item-title>
               </v-list-item-content>
             </v-list-item>
             <v-list-item>
               <v-list-item-content>
                 <v-list-item-title>
-                  <a class = "button" active-class="link--active" @click="profileEdit">プロフィール編集</a>
+                  <v-icon color="primary">mdi-account-edit</v-icon>
+                  <a class = "button" active-class="link--active" @click="profileEdit">
+                    プロフィール編集
+                  </a>
                 </v-list-item-title>
               </v-list-item-content>
             </v-list-item>
             <v-list-item>
               <v-list-item-content>
                 <v-list-item-title>
-                  <a class = "button" active-class="link--active" @click="logout">ログアウト</a>
+                  <v-icon color="primary">mdi-logout</v-icon>
+                  <a class = "button" active-class="link--active" @click="logout">
+                    ログアウト
+                  </a>
                 </v-list-item-title>
               </v-list-item-content>
             </v-list-item>
           </v-list-item-group>
         </v-list>
-      </v-card>
+     
     </v-navigation-drawer>
   </div>
 </template>
@@ -114,6 +125,9 @@ export default {
   overflow: hidden;
   color: #000;
   text-decoration: none;
+  position: relative;
+  top: 4px;
+  left: 4px;
 }
 
 .button:after {
@@ -123,7 +137,7 @@ export default {
   width: 100%;
   height: 1px;
   background-color: #000;
-  transform: translate(-100%, 0);
+  transform: translate(-101%, 0);
   transition: transform cubic-bezier(0.215, 0.61, 0.355, 1) 0.4s;
   content: "";
 }
@@ -131,4 +145,9 @@ export default {
 .button:hover:after {
   transform: translate(0, 0);
 }
+
+#user-avater{
+  margin-left:66px;
+}
+
 </style>
