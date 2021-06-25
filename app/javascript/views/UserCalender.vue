@@ -2,31 +2,58 @@
   <v-app>
     <v-sheet height="64">
       <v-toolbar flat color="white">
-        <v-btn outlined class="mr-4" color="grey darken-2" @click="setToday">
+        <v-btn id="today" @click="setToday">
           今日
         </v-btn>
         <v-btn fab text small color="grey darken-2" @click="prev">
           <
         </v-btn>
-        <v-toolbar-title v-if="$refs.calendar">
+        <span id="calendar-title" v-if="$refs.calendar">
           {{ $refs.calendar.title }}
-        </v-toolbar-title>
+        </span>
         <v-btn fab text small color="grey darken-2" @click="next">
           >
         </v-btn>
         
         <v-spacer></v-spacer>
-        
+        <v-menu
+          bottom
+          right
+        >
+          <template v-slot:activator="{ on, attrs }">
+            <v-btn
+              v-bind="attrs"
+              v-on="on"
+              id="type-select-open"
+            >
+              <span>{{ typeToLabel[type] }}</span>
+              <v-icon right>
+                mdi-menu-down
+              </v-icon>
+            </v-btn>
+          </template>
+          <v-list id="calendar-type">
+            <v-list-item @click="type = 'day'">
+              <v-list-item-title>Day</v-list-item-title>
+            </v-list-item>
+            <v-list-item @click="type = 'month'">
+              <v-list-item-title>Month</v-list-item-title>
+            </v-list-item>
+          </v-list>
+        </v-menu>
       </v-toolbar>
     </v-sheet>
-    <v-sheet height="600" width="350">
+    <v-sheet id="calendar">
         <v-calendar
           ref="calendar"
           v-model="focus"
           color="primary"
+          interval-count="0"
           :events="this.$store.state.events"
           :event-color="getEventColor"
           :type="type"
+          @click:more="viewDay"
+          @click:date="viewDay"
           @click:event="showEvent"
         >
         </v-calendar>
@@ -38,7 +65,7 @@
         >
           <v-card
             color="grey lighten-4"
-            min-width="350px"
+            id="event-card"
             flat
           >
             <v-toolbar
@@ -104,6 +131,12 @@ import axios from "axios"
       selectedEvent: {},
       selectedElement: null,
       selectedOpen: false,
+      typeToLabel: {
+        month: 'Month',
+        week: 'Week',
+        day: 'Day',
+        '4day': '4 Days',
+      },
       errors:"",
       prepareEditHugCount:""
       
@@ -115,8 +148,13 @@ import axios from "axios"
       getEventColor (event) {
         return event.color
       },
+      viewDay ({ date }) {
+        this.focus = date
+        this.type = 'day'
+      },
       setToday () {
         this.focus = ''
+        this.type = 'month'
       },
       prev () {
         this.$refs.calendar.prev()
@@ -185,5 +223,37 @@ import axios from "axios"
   };
 </script>
 
+<style scoped>
+@import url('https://fonts.googleapis.com/css2?family=Shippori+Mincho&display=swap');
+#calendar-title,#today,#calendar-type,#type-select-open{
+  font-family: 'Shippori Mincho', serif;
+  font-size: 14px;
+}
 
+#calendar{
+  height: 550px;
+  width: 350px;
+}
+
+#event-card{
+  width: 350px;
+}
+
+#calender .v-calendar-daily__head {
+  height: 200px;
+}
+
+@media screen and (min-width: 768px){
+  #calendar{
+    height: 650px;
+    width: 700px;
+  }
+  
+  #event-card{
+    width: 300px;
+  }
+}
+
+
+</style>
 
