@@ -9,11 +9,10 @@
     </nav>
     <v-navigation-drawer
         :value="this.$store.state.drawer"
-        absolute
+        fixed
         right
-        mobile-breakpoint="100"
-        bottom
         temporary
+        id="user-menu"
       >
         <v-list flat>
           <v-subheader>
@@ -118,6 +117,7 @@ export default {
   height: 50px;
   border-bottom: solid 1px rgba(0,0,0,0.7);
 }
+
 .button {
   margin-right: 10px;
   display: inline-block;

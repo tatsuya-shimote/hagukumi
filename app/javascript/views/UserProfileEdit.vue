@@ -1,6 +1,5 @@
 <template>
   <div>
-    
       <v-container>
         <h1 class = "edit-title">プロフィール編集</h1>
         <div id="edit-user-name">
@@ -25,7 +24,6 @@
           <p>「どこでもHugしちゃう」</p>
         </div>
       </v-container>
-   
   </div>
 </template>
 

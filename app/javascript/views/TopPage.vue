@@ -1,6 +1,5 @@
 <template>
   <div>
-    
     <transition name="fade" mode="out-in" appear>
       <div id="app-title" v-if="animate">
         <h1 id="app-name">Hugクミ</h1>
@@ -56,7 +55,6 @@
       </div>
       </transition>
     </v-lazy>
-   
   </div>
 </template>
 

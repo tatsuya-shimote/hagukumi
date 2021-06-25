@@ -1,6 +1,5 @@
 <template>
   <div>
-    
     <transition name="fade" mode="out-in" appear>
       <div class = "container">
         <h3 id="home-message">
@@ -32,7 +31,6 @@
       <HugRegisterDialog :hug="hug"></HugRegisterDialog>
       <UserCalender :hug="hug"></UserCalender>
     </v-overlay>
-   
   </div>
 </template>
 
