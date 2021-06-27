@@ -28,12 +28,11 @@ class Api::V1::UsersController < ApiController
   
   def update
     if (@current_user && @current_user.update(user_edit_params))
-      render json: {name: @current_user.name, image_url: @current_user.image}
+      render json: {message: "プロフィールを変更しました"}
     else
       render json: {errors: @current_user.errors.full_messages}, status: :unprocessable_entity
     end
   end
-# {message: "プロフィールを変更しました"}
   private
 
     def user_params

@@ -13,6 +13,7 @@ export default new Vuex.Store({
     drawer: false,
     userId: null,
     user:{},
+    userImage:"",
     events: []
   },
   getters:{
@@ -20,7 +21,8 @@ export default new Vuex.Store({
     events: state => state.events,
     userId: state => state.userId,
     user: state => state.user,
-    userHugCount: state => state.user.hug_count_sum
+    userHugCount: state => state.user.hug_count_sum,
+    userImage: state => state.userImage
   },
   mutations: {
     
@@ -70,6 +72,10 @@ export default new Vuex.Store({
     
     subtractionHugCount(state, hugCount){
       state.user.hug_count_sum = state.user.hug_count_sum - hugCount;
+    },
+    
+    updateUserImage(state, userImageUrl){
+      state.userImage = userImageUrl
     },
     
     loadUserHugInfo(state){

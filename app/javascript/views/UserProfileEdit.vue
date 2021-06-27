@@ -22,12 +22,6 @@
               prepend-icon="mdi-camera"
               label="プロフィール画像"
             ></v-file-input>
-            <!--<input -->
-            <!--  class="custom-file-input"-->
-            <!--  type="file"-->
-            <!--  name="user[image]"-->
-            <!--  ref="userImage"-->
-            <!-->-->
           </template>
           <v-btn 
             @click="submit"
@@ -70,7 +64,7 @@ export default {
       {headers: { 'X-Requested-With': 'XMLHttpRequest', 'content-type': 'multipart/form-data'}}, 
       {withCredentials: true})
       .then(response => {
-        console.log(response)
+        alert(response.data.message)
       }).catch(error => {
         console.error(error);
             if (error.response.data && error.response.data.errors) {

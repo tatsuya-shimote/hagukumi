@@ -18,7 +18,8 @@
           <v-subheader>
             ユーザーメニュー
             <v-avatar color="indigo" id="user-avater">
-              <v-icon dark>
+              <img :src="this.$store.getters.userImage" v-if="this.$store.getters.userImage">
+              <v-icon dark v-else>
                 mdi-account-circle
               </v-icon>
             </v-avatar>
@@ -69,9 +70,13 @@ export default {
   data(){
     return {
       selectedItem: 1,
+      image:""
     }
   },
   methods:{
+    getUserImage(){
+  
+    },
     
     changeOverlay(){
       this.$store.commit("changeOverlay", true)
