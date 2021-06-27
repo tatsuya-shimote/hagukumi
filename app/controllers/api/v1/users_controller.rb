@@ -10,7 +10,7 @@ class Api::V1::UsersController < ApiController
     user = User.find_by(id: params[:id])
     if user && user == @current_user
       hugs_point = Hug.where("user_id = :user_id",{user_id: params[:id]}).sum(:count)
-      render json: {name: user.name, hug_count_sum: hugs_point}
+      render json: {name: user.name, hug_count_sum: hugs_point, image: user.image}
     else
       render json: {message: "メールアドレスまたはパスワードが違います。"}, status: :unprocessable_entity
     end
@@ -28,12 +28,12 @@ class Api::V1::UsersController < ApiController
   
   def update
     if (@current_user && @current_user.update(user_edit_params))
-      render json: {message: "プロフィールを変更しました"}
+      render json: {name: @current_user.name, image_url: @current_user.image}
     else
       render json: {errors: @current_user.errors.full_messages}, status: :unprocessable_entity
     end
   end
-
+# {message: "プロフィールを変更しました"}
   private
 
     def user_params
@@ -41,7 +41,7 @@ class Api::V1::UsersController < ApiController
     end
     
     def user_edit_params
-      params.require(:user).permit(:name)
+      params.permit(:name, :image)
     end
     
 end

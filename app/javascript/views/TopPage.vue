@@ -19,23 +19,11 @@
         min-height="200"
       >
       <transition name="slide" mode="out-in">
-        <div class = "container sub-section">
-          <h2>あなたのHugの習慣化の手助けをします。</h2>
-          <p>あなたは１日のハグを記録するだけ。ハグの回数に応じて幸せポイントが貯まっていきます。</p>
-        </div>
-      </transition>
-    </v-lazy>
-    <v-lazy
-        :options="{
-          threshold: 1
-        }"
-        min-height="200"
-      >
-      <transition name="slide-reverse" mode="out-in">
-        <div class="container sub-section">
-          <h2>ハグの効果は絶大</h2>
-          <p>リラックス効果，ストレス軽減，信頼関係が深まる。そして，<span id="is-happy">幸福感が増す。</span>
-          <br>ハグを習慣化することで幸せになろう。</p>
+        <div class = "container sub-section" id="section1">
+          <div class="sub-section-texts">
+            <h2>Hugの習慣化を手助けします。</h2>
+            <p class="text">あなたは１日のハグを記録するだけ。ハグの回数に応じて幸せポイントが貯まっていきます。</p>
+          </div>
         </div>
       </transition>
     </v-lazy>
@@ -46,12 +34,30 @@
         min-height="200"
       >
       <transition name="slide" mode="out-in">
-      <div class="container sub-section">
-        <h2>Hugは誰といつするのか？</h2>
-          <p>
+        <div class="container sub-section" id="section2">
+          <div class="sub-section-texts">
+            <h2>ハグの効果は絶大</h2>
+            <p class="text">リラックス効果，ストレス軽減，信頼関係が深まる。そして，<span id="is-happy">幸福感が増す。</span>
+            <br>ハグを習慣化することで幸せになろう。</p>
+          </div>
+        </div>
+      </transition>
+    </v-lazy>
+    <v-lazy
+        :options="{
+          threshold: 1
+        }"
+        min-height="200"
+      >
+      <transition name="slide" mode="out-in">
+      <div class="container sub-section" id="section3">
+        <div class="sub-section-texts">
+          <h2>Hugは誰といつするのか？</h2>
+          <p class="text">
             家族，恋人，ペット，ぬいぐるみ，枕などなど自分が安心できるものにハグしましょう。
             気持ちが落ち込んだ時，嬉しいことがあったとき，不安なとき，ハグをすることで安心感を得たり，喜びを共有することができます。
           </p>
+        </div>
       </div>
       </transition>
     </v-lazy>
@@ -81,7 +87,7 @@
 }
 
 .slide-enter{
-  transform: translateX(-100%);
+  transform: translateY(50%);
   opacity: 0;
 }
 
@@ -89,14 +95,6 @@
   transition: all 2.0s;
 }
 
-.slide-reverse-enter{
-  transform: translateX(100%);
-  opacity: 0;
-}
-
-.slide-reverse-enter-active{
-  transition: all 2.0s;
-}
 
 #app-name{
   font-size: 70px;
@@ -109,7 +107,7 @@
   text-align: center;
   padding-top: 200px;
   box-sizing: border-box;
-      background-image: url('../images/hagukumi_top_image.2.jpeg');
+  background-image: url('../images/hagukumi_top_image.2.jpeg');
   background-size: cover;
   background-color: rgba(255,255,255,0.4);
   background-blend-mode: lighten;
@@ -125,25 +123,26 @@
 
 .sub-section{
   font-family: 'Shippori Mincho', serif;
-  margin-top: 80px;
-  color: #4c4c61;
+  color: #1d1d3c;
+  height: 350px;
+  margin: 40px auto;
+  letter-spacing: 1.5px;
+  
 }
 
 #start-to-hugkumi{
   margin-top: 20px;
   text-align: center;
   padding-bottom: 40px;
-  background-color: #f9cb77;
   border-radius: 10px;
   
 }
 
 #login-text{
   font-family: 'Shippori Mincho', serif;
-  color: #ffffff;
+  color: #828080;
   letter-spacing: 3px;
   font-size: 22px;
-  font-weight: 600;
   line-height: 100px
 }
 
@@ -156,6 +155,33 @@
   font-size: 20px;
   font-weight: 600;
   border-bottom: 3px solid rgba(249,203,118,0.8);
+}
+
+#section1{
+  box-shadow: 1px 1px 10px 1px #999;
+  border-radius: 10px;
+  background-image: url('../images/hug_circle.jpg');
+  background-size: cover;
+  background-color: rgba(255,255,255,0.7);
+  background-blend-mode: lighten;
+}
+
+#section3{
+  box-shadow: 1px 1px 10px 1px #999;
+  border-radius: 10px;
+  background-image: url('../images/hug_kitty.jpg');
+  background-size: cover;
+  background-color: rgba(255,255,255,0.7);
+  background-blend-mode: lighten;
+}
+
+.sub-section-texts{
+  text-align: center;
+  padding-top: 95px;
+}
+
+.text{
+  font-size: 15px;
 }
 
 @media screen and (min-width:768px) { 

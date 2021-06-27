@@ -34,6 +34,7 @@ gem 'carrierwave'
 gem 'fog-aws'
 gem 'image_processing',           '1.9.3'
 gem 'mini_magick',                '4.9.5'
+gem 'aws-sdk'
 
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console

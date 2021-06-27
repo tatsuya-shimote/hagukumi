@@ -11,8 +11,24 @@
           <v-text-field
             v-model="user.name"
             color="blue"
+            prepend-icon="mdi-rename-box"
             label="名前の変更"
           ></v-text-field>
+          <template>
+            <v-file-input
+              v-model="user.image"
+              accept="image/png, image/jpeg, image/bmp"
+              placeholder="画像を選択"
+              prepend-icon="mdi-camera"
+              label="プロフィール画像"
+            ></v-file-input>
+            <!--<input -->
+            <!--  class="custom-file-input"-->
+            <!--  type="file"-->
+            <!--  name="user[image]"-->
+            <!--  ref="userImage"-->
+            <!-->-->
+          </template>
           <v-btn 
             @click="submit"
             color="blue"
@@ -20,8 +36,8 @@
           >保存</v-btn>
         </div>
         <div class="img-center">
-          <img src="../images/hagukumi_icon.png" id = "app-icon">
           <p>「どこでもHugしちゃう」</p>
+          <img src="../images/hagukumi_icon.png" id = "app-icon">
         </div>
       </v-container>
   </div>
@@ -33,7 +49,10 @@ export default {
   data(){
     return {
       user:{},
-      errors:""
+      errors:"",
+      presignedUrl: '',  // Rails側で発行される署名付きリンク
+      uploadFile: {},    // アップロードする予定のファイル
+      productId: '',     // アップロードするファイルのID
     }
     
   },
@@ -44,9 +63,14 @@ export default {
     },
     
     submit(){
-      axios.patch(`/api/v1/users/${this.$route.params.id}`,{name: this.user.name}, {headers: { 'X-Requested-With': 'XMLHttpRequest' }}, {withCredentials: true})
-      .then(responsse => {
-        alert(responsse.data.message)
+       let formData = new FormData();
+       formData.append('name', this.user.name);
+       formData.append('image', this.user.image);
+      axios.patch(`/api/v1/users/${this.$route.params.id}`, formData,
+      {headers: { 'X-Requested-With': 'XMLHttpRequest', 'content-type': 'multipart/form-data'}}, 
+      {withCredentials: true})
+      .then(response => {
+        console.log(response)
       }).catch(error => {
         console.error(error);
             if (error.response.data && error.response.data.errors) {

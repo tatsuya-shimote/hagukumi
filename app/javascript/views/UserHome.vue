@@ -15,6 +15,7 @@
         </div>
         <p class="comment">とても幸せですね。その幸せを大切に，感謝を忘れずに</p>
         <img src="../images/hagukumi_icon.png" id = "app-icon">
+        <img :src="this.$store.getters.user.image">
       </div>
     </transition>
     <v-overlay
@@ -79,6 +80,7 @@ let date = now.getDate()
       .then(response => {
         const e = response.data
         this.$store.commit("updateUser", e)
+        console.log(this.$store.getters.user.image)
       }).catch(error => {
         this.$router.push("/login");
       })
