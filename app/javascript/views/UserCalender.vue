@@ -171,6 +171,7 @@ import axios from "axios"
           this.hug.month = dateTime[1];
           this.hug.date = dateTime[2];
           this.hug.hugId = this.selectedEvent.hug_id;
+          console.log(this.hug)
           this.prepareEditHugCount = this.$store.getters.userHugCount - this.hug.count;
           this.selectedElement = nativeEvent.target;
           requestAnimationFrame(() => requestAnimationFrame(() => this.selectedOpen = true));

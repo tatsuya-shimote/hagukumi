@@ -9,11 +9,16 @@
         <div class="card" style="width: 18rem;">
           <div class="card-body">
             <h3 class="card-title">現在の<br>幸福度</h3>
-            <p class="card-text">{{this.$store.getters.user.hug_count_sum}}pt</p>
+            <p class="card-text" v-if="this.$store.getters.user.hug_count_sum >= 0">{{this.$store.getters.user.hug_count_sum}}pt</p>
+            <p class="card-text" v-else>0pt</p>
               <HugRegisterDialog :hug="hug"></HugRegisterDialog>
           </div>
         </div>
-        <p class="comment">とても幸せですね。その幸せを大切に，感謝を忘れずに</p>
+        <p class="comment" v-if="this.$store.getters.user.hug_count_sum === 0">さあ，Hugをしよう</p>
+        <p class="comment" v-else-if="this.$store.getters.user.hug_count_sum > 200">マザーテレサが再び生まれてきたようです。</p>
+        <p class="comment" v-else-if="this.$store.getters.user.hug_count_sum　> 100">とても幸せですね。その幸せを大切に，感謝を忘れずに</p>
+        <p class="comment" v-else-if="this.$store.getters.user.hug_count_sum > 50">幸せを実感しているのではないでしょうか。幸せは何よりもあなたを救うものですよ。</p>
+        <p class="comment" v-else-if="this.$store.getters.user.hug_count_sum > 0">幸せはHugとともに。今日もHugしよ。</p>
         <img src="../images/hagukumi_icon.png" id = "app-icon">
       </div>
     </transition>

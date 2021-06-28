@@ -90,6 +90,7 @@ import axios from "axios"
         axios.post(`/api/v1/hugs`,this.hug, {headers: { 'X-Requested-With': 'XMLHttpRequest' }}, {withCredentials: true})
         .then(response => {
           const e = response.data
+          console.log(e)
           this.dialog = false
           this.$store.commit("sumHugCount", e.count)
           this.$store.commit("calenderRecord", {name: `${e.count}`, start: `${e.year}-${e.month}-${e.date}`, color: "blue", hug_id: `${e.id}`})

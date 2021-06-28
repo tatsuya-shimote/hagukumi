@@ -22,7 +22,7 @@
         <div class = "container sub-section" id="section1">
           <div class="sub-section-texts">
             <h2>Hugの習慣化を手助けします。</h2>
-            <p class="text">あなたは１日のハグを記録するだけ。ハグの回数に応じて幸せポイントが貯まっていきます。</p>
+            <p class="text">あなたは１日のハグを記録するだけ。ハグの回数に応じて幸福度がポイントとして貯まっていきます。またこの記録は自動でアプリ内のカレンダーに登録されます。</p>
           </div>
         </div>
       </transition>
