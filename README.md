@@ -1,24 +1,5 @@
-# README
-
-This README would normally document whatever steps are necessary to get the
-application up and running.
-
-Things you may want to cover:
-
-* Ruby version
-
-* System dependencies
-
-* Configuration
-
-* Database creation
-
-* Database initialization
-
-* How to run the test suite
-
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
+# Hugクミ
+1日のハグの回数を記録し，ハグの習慣化を目指すアプリです。ハグの回数に応じて幸福度がポイントとして加算されていきます。  
+(レスポンシブ対応しています。)  
+こちらがアプリのURLです。https://hagukumi.herokuapp.com/
+# 作成した目的
