@@ -1,24 +1,40 @@
-# README
+# Hugクミ
+1日のハグの回数を記録し，ハグの習慣化を目指すアプリです。ハグの回数に応じて幸福度がポイントとして加算されていきます。  
+(レスポンシブ対応，SPA化しています。)  
+こちらがアプリのURLです。https://hagukumi.herokuapp.com/
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+# 作成した目的
+[世界幸福度報告書](https://worldhappiness.report/)2021年版によると日本の幸福度ランキングは５６位。上位TOP１０のうち9カ国は欧州の国々。  
+日本と欧州の違いは何か。それは**ハグの文化があるかどうかだ！!**  
+そこでハグを習慣化すればより幸福度を上げることができるのではないかと考え，このアプリを作成しました。  
+（この調査における幸福度は、自分の幸福度が0から10のどの段階にあるかを答える世論調査によって得られた数値の平均値
+であるため、あくまで主観的な値です。ですのでこのランキングから日本人は幸せではない，ということではありません。）
 
-Things you may want to cover:
+# 使い方
+## ユーザー画面
+ここで幸福度が何ポイント貯まっているかを確認することができます。
+またここから今日のハグの回数を記録することができます。
 
-* Ruby version
+# 使用技術
+- HTML/CSS
+- Ruby 2.6.7
+- Ruby on Rails 6.0.3.7
+- JavaScript
+- Vue.js 2.6.14
+- MySQL 5.7
+- Puma
+- AWS
+    - S3
+- Heroku
 
-* System dependencies
+# 機能一覧
+ユーザー登録/ログイン機能  
+ハグのCRUD(Ajax)  
+プロフィール画像設定機能(S3)  
+カレンダー機能(Vuetify)
 
-* Configuration
-
-* Database creation
-
-* Database initialization
-
-* How to run the test suite
-
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
+# 追加したい機能
+ユーザーフォロー機能
+幸福度ポイントお裾分け機能
+通知機能
+ユーザー検索機能
