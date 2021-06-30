@@ -28,34 +28,13 @@
             v-model="selectedItem"
             color="primary"
           >
-            <v-list-item>
-              <v-list-item-content>
-                <v-list-item-title>
-                  <v-icon color="primary">mdi-calendar-month</v-icon>
-                  <a class = "button" active-class="link--active" @click="calenderOpen">
-                    記録カレンダー
-                  </a>
-                </v-list-item-title>
-              </v-list-item-content>
-            </v-list-item>
             
             <v-list-item>
               <v-list-item-content>
                 <v-list-item-title>
-                  <v-icon color="primary">mdi-account</v-icon>
-                  <a class = "button" active-class="link--active" @click="profile">
-                    プロフィール
-                  </a>
-                </v-list-item-title>
-              </v-list-item-content>
-            </v-list-item>
-            
-            <v-list-item>
-              <v-list-item-content>
-                <v-list-item-title>
-                  <v-icon color="primary">mdi-account-edit</v-icon>
-                  <a class = "button" active-class="link--active" @click="profileEdit">
-                    プロフィール編集
+                  <v-icon color="primary">mdi-home</v-icon>
+                  <a class = "button" active-class="link--active" @click="userHome">
+                    ホーム
                   </a>
                 </v-list-item-title>
               </v-list-item-content>
@@ -112,7 +91,7 @@ export default {
     },
     
     logout(){
-      axios.delete(`/api/v1/sessions/${this.$route.params.id}`)
+      axios.delete(`/api/v1/sessions/${this.$store.getters.userId}`)
       .then(response => {
         alert(response.data.message)
         this.$store.commit("updateUserId", null)
@@ -123,23 +102,15 @@ export default {
       })
     },
     
-    calenderOpen(){
-      this.changeDrawer()
-      this.changeOverlay()
-    },
     
     resetEvents(){
       this.$store.commit("resetEvents")
     },
     
-    profile(){
+    userHome(){
       this.changeDrawer()
-      this.$router.push(`/users/${this.$route.params.id}/profile`)
-    },
-    
-    profileEdit(){
-      this.changeDrawer()
-      this.$router.push(`/users/${this.$route.params.id}/edit`)
+      this.resetEvents()
+      this.$router.push(`/users/${this.$store.getters.userId}`)
     },
     
     userIndex(){

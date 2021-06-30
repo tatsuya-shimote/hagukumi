@@ -9,6 +9,9 @@ const UserHome = () => import(/* webpackChunkName: "UserHome" */'./views/UserHom
 const UserHeader = () => import(/* webpackChunkName: "UserHeader" */'./views/UserHeader.vue')
 const UserProfileEdit = () => import(/* webpackChunkName: "UserProfileEdit" */'./views/UserProfileEdit.vue')
 const UserProfileHeader = () => import(/* webpackChunkName: "UserProfileHeader" */'./views/UserProfileHeader.vue')
+const UserIndex = () => import(/* webpackChunkName: "UserIndex" */'./views/UserIndex.vue')
+const UserIndexHeader = () => import(/* webpackChunkName: "UserIndexHeader" */'./views/UserIndexHeader.vue')
+const UserProfile = () => import(/* webpackChunkName: "UserProfile" */'./views/UserProfile.vue')
 Vue.use(Router);
 
 export default new Router({
@@ -60,6 +63,22 @@ export default new Router({
             header: UserProfileHeader
         },
         name: 'edit_path'
+      },
+      {
+        path: "/users",
+        components: {
+            default: UserIndex,
+            header: UserIndexHeader
+        },
+        name: 'users_path'
+      },
+      {
+        path: "/users/:id/profile",
+        components: {
+            default: UserProfile,
+            header: UserIndexHeader
+        },
+        name: 'profile_path'
       }
     ]
 })

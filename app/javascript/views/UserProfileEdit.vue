@@ -75,8 +75,9 @@ export default {
   },
   created(){
     axios.get(`/api/v1/users/${this.$route.params.id}`)
-    .then(ressponse => {
-      this.user = ressponse.data
+    .then(response => {
+      this.user = response.data
+      this.$store.commit("updateUserId", response.data.id)
     }).catch(error => {
       this.$router.push("/login")
     })

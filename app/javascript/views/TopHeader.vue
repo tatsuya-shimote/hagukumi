@@ -3,7 +3,7 @@
     <nav class = "navbar navbar-expand headnav">
       <div class="container-fluid">
         <router-link to="/" class="navbar-brand" active-class="link--active" exact>Hugクミ</router-link>
-        <template v-if="this.$store.getters.idToken">
+        <template v-if="this.$store.getters.userId">
             <router-link :to="{name: 'user-home', params: {id: this.$store.getters.userId}}" class = "button" active-class="link--active" exact>ユーザーページ</router-link></li> 
         </template>
         <template v-else>

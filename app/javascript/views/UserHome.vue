@@ -85,6 +85,7 @@ let date = now.getDate()
       .then(response => {
         const e = response.data
         this.$store.commit("updateUser", e)
+        this.$store.commit("updateUserId", e.id)
         this.$store.commit("updateUserImage",this.$store.getters.user.image.url) 
       }).catch(error => {
         this.$router.push("/login");
