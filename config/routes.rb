@@ -5,8 +5,11 @@ Rails.application.routes.draw do
       resources :users, only: [:index, :show, :create, :update]  do
         member do
           get :profile
+          get :following
+          get :follower
         end
       end
+      resources :relationships, only: [:create, :destroy]
       resources :sessions, only: [:create, :destroy]
       resources :hugs, only: [:index, :create, :update, :destroy]
     end

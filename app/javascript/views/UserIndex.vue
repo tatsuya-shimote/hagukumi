@@ -19,10 +19,8 @@
                   </v-icon>
                 </v-avatar>
               </v-list-item-avatar>
-              
-    
               <v-list-item-content>
-                <v-list-item-title v-text="user.name"></v-list-item-title>
+                <v-list-item-title>{{user.name}}</v-list-item-title>
               </v-list-item-content>
             </v-list-item>
           </router-link>
@@ -58,6 +56,7 @@ import axios from "axios"
 <style scoped>
 a{
   text-decoration: none;
+  color: black;
 }
   
 </style>

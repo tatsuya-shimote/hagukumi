@@ -1,5 +1,5 @@
 class Api::V1::UsersController < ApiController
-  before_action :require_login, only: [:index, :show, :update, :profile]
+  before_action :require_login, only: [:index, :show, :update, :profile, :following, :follower]
 
   def index
     users = User.select(:id, :name, :image)
@@ -39,7 +39,23 @@ class Api::V1::UsersController < ApiController
     user = User.find(params[:id])
     current_user = @current_user
     hugs_point = Hug.where("user_id = :user_id",{user_id: params[:id]}).sum(:count)
-    render json: {id: user.id, name: user.name, image: user.image, hug_count_sum: hugs_point, current_user_id: current_user.id}
+    if current_user.following?(user)
+      render json: {id: user.id, name: user.name, image: user.image, hug_count_sum: hugs_point, current_user_id: current_user.id, unfollow: false}
+    else
+      render json: {id: user.id, name: user.name, image: user.image, hug_count_sum: hugs_point, current_user_id: current_user.id, unfollow: true}
+    end
+  end
+  
+  def following
+    user = @current_user
+    followed = user.followings
+    render json: followed
+  end
+  
+  def follower
+    user = @current_user
+    follower = user.follower
+    render json: follower
   end
   
   private
