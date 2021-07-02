@@ -21,7 +21,7 @@
           <p id="user-name">{{user.name}}</p>
           <div v-if="user.id !== this.$store.getters.userId">
             <v-btn color="blue" id="follow-btn" max-width="350" @click="follow" v-if="unfollowing">Follow</v-btn>
-            <v-btn color="red" id="follow-btn" max-width="350" @click="unfollow" v-else>Unfollow</v-btn>
+            <v-btn color="green accent-3" id="follow-btn" max-width="350" @click="unfollow" v-else>Following</v-btn>
           </div>
         </v-col>
         <v-col cols="12" md="6">
@@ -31,34 +31,80 @@
         </v-col>
      </v-row>
      <v-tabs
-      v-model="tab"
-      background-color="white"
-      centered
-      icons-and-text
-      class="mt-4"
-    >
-      <v-tabs-slider></v-tabs-slider>
-
-      <v-tab href="#tab-1">
-        Follow
-        <v-icon>mdi-account</v-icon>
-      </v-tab>
-
-      <v-tab href="#tab-2">
-        Follwer
-        <v-icon>mdi-account</v-icon>
-      </v-tab>
-
-    </v-tabs>
-
-      <!--<v-tabs-items v-model="tab">-->
-      <!--  <v-tab-item-->
-      <!--  >-->
-      <!--    <v-card flat>-->
-      <!--      <v-card-text>こんにちは</v-card-text>-->
-      <!--    </v-card>-->
-      <!--  </v-tab-item>-->
-      <!--</v-tabs-items>-->
+        v-model="tabs"
+        centered
+        fixed-tabs
+        icons-and-text
+        class="mt-4"
+      >
+        <v-tabs-slider></v-tabs-slider>
+  
+        <v-tab href="#tab-1">
+          Follow
+          <v-icon>mdi-account</v-icon>
+        </v-tab>
+  
+        <v-tab href="#tab-2">
+          Follwer
+          <v-icon>mdi-account</v-icon>
+        </v-tab>
+      </v-tabs>
+    <v-tabs-items v-model="tabs">
+      <v-tab-item value="tab-1" >
+        <v-list flat>
+          <v-list-item-group
+            color="primary"
+          >
+            <div v-for="followed in followeds" :key="followed.name">
+              <router-link :to="{name:'profile_path', params:{id: followed.id}}">
+                <v-list-item
+                  class="mt-4"
+                >
+                  <v-list-item-avatar>
+                    <v-img :src="followed.image.url" v-if="followed.image.url"></v-img>
+                    <v-avatar color="indigo"v-else>
+                      <v-icon dark>
+                        mdi-account-circle
+                      </v-icon>
+                    </v-avatar>
+                  </v-list-item-avatar>
+                  <v-list-item-content>
+                    <v-list-item-title>{{followed.name}}</v-list-item-title>
+                  </v-list-item-content>
+                </v-list-item>
+              </router-link>
+            </div>
+          </v-list-item-group>
+        </v-list>
+      </v-tab-item>
+      <v-tab-item value="tab-2">
+        <v-list flat>
+          <v-list-item-group
+            v-model="selectedItem"
+          >
+            <div v-for="follower in followers" :key="follower.name">
+              <router-link :to="{name:'profile_path', params:{id: follower.id}}">
+                <v-list-item
+                  class="mt-4"
+                >
+                  <v-list-item-avatar>
+                    <v-img :src="follower.image.url" v-if="follower.image.url"></v-img>
+                    <v-avatar color="indigo"v-else>
+                      <v-icon dark>
+                        mdi-account-circle
+                      </v-icon>
+                    </v-avatar>
+                  </v-list-item-avatar>
+                  <v-list-item-content>
+                    <v-list-item-title>{{follower.name}}</v-list-item-title>
+                  </v-list-item-content>
+                </v-list-item>
+              </router-link>
+            </div>
+          </v-list-item-group>
+        </v-list>
+      </v-tab-item>
+    </v-tabs-items>
     </v-container>
   </div>
 </template>
@@ -70,43 +116,72 @@ import axios from "axios"
     data(){
       return{
         user:{},
+        followers:[],
+        followeds:[],
         userImage:"",
-        tab: null,
+        text:"こんにちは",
+        selectedItem: 1,
+        tabs: null,
         snackbar: false,
         message: "",
-        unfollowing: ""
+        unfollowing: "",
       }
     },
+    beforeRouteUpdate(to,from,next){
+      this.getUserProfileData(to.params.id)
+      next()
+    },
     created(){
-      axios.get(`/api/v1/users/${this.$route.params.id}/profile`)
-      .then(response => {
-        this.user = response.data
-        this.unfollowing = response.data.unfollow
-        console.log(this.user)
-        this.userImage = response.data.image.url
-        this.$store.commit("updateUserId", response.data.current_user_id)
-      })
+      this.getUserProfileData(this.$route.params.id)
     },
     methods:{
+      getUserProfileData(id){
+        axios.get(`/api/v1/users/${id}/profile`)
+        .then(response => {
+          this.user = response.data
+          this.unfollowing = response.data.unfollow
+          this.userImage = response.data.image.url
+          this.$store.commit("updateUserId", response.data.current_user_id)
+          this.follower()
+          this.followed()
+        })
+      },
       follow(){
         axios.post(`/api/v1/relationships`,{followed_id: this.user.id})
         .then(response => {
-          console.log(response)
           this.message = response.data.message
           this.unfollowing = response.data.unfollow
+          this.follower()
+          this.followed()
           this.snackbar = true
         })
       },
       unfollow(){
-        axios.delete(`/api/v1/relationships/${this.$store.getters.userId}`)
+        axios.delete(`/api/v1/relationships/${this.user.id}`)
         .then(response => {
-          console.log(response)
           this.message = response.data.message
           this.unfollowing = response.data.unfollow
+          this.follower()
+          this.followed()
           this.snackbar = true
         })
-      }
-    }
+      },
+      follower(){
+        this.followers = []
+        axios.get(`/api/v1/users/${this.$route.params.id}/follower`)
+        .then(response => {
+          this.followers = response.data
+        })
+      },
+      followed(){
+        this.followeds = []
+        axios.get(`/api/v1/users/${this.$route.params.id}/following`)
+        .then(response => {
+          this.followeds = response.data
+        })
+      },
+    },
+    
   }
 </script>
 
@@ -119,5 +194,8 @@ import axios from "axios"
 #follow-btn{
   position: relative;
   top: 10px;
+}
+a{
+  text-decoration: none;
 }
 </style>

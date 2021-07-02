@@ -47,13 +47,13 @@ class Api::V1::UsersController < ApiController
   end
   
   def following
-    user = @current_user
+    user = User.find(params[:id])
     followed = user.followings
     render json: followed
   end
   
   def follower
-    user = @current_user
+    user = User.find(params[:id])
     follower = user.follower
     render json: follower
   end

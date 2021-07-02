@@ -50,15 +50,15 @@
         min-height="200"
       >
       <transition name="slide" mode="out-in">
-      <div class="container sub-section" id="section3">
-        <div class="sub-section-texts">
-          <h2>Hugは誰といつするのか？</h2>
-          <p class="text">
-            家族，恋人，ペット，ぬいぐるみ，枕などなど自分が安心できるものにハグしましょう。
-            気持ちが落ち込んだ時，嬉しいことがあったとき，不安なとき，ハグをすることで安心感を得たり，喜びを共有することができます。
-          </p>
+        <div class="container sub-section" id="section3">
+          <div class="sub-section-texts">
+            <h2>Hugは誰といつするのか？</h2>
+            <p class="text">
+              家族，恋人，ペット，ぬいぐるみ，枕などなど自分が安心できるものにハグしましょう。
+              気持ちが落ち込んだ時，嬉しいことがあったとき，不安なとき，ハグをすることで安心感を得たり，喜びを共有することができます。
+            </p>
+          </div>
         </div>
-      </div>
       </transition>
     </v-lazy>
   </div>
@@ -95,13 +95,13 @@
   transition: all 2.0s;
 }
 
-
 #app-name{
   font-size: 70px;
   letter-spacing: 16px;
   font-family: 'RocknRoll One', sans-serif;
   color: #feffff;
 }
+
 #app-title{
   height: 500px;
   text-align: center;
@@ -127,7 +127,6 @@
   height: 350px;
   margin: 40px auto;
   letter-spacing: 1.5px;
-  
 }
 
 #start-to-hugkumi{
@@ -135,7 +134,6 @@
   text-align: center;
   padding-bottom: 40px;
   border-radius: 10px;
-  
 }
 
 #login-text{

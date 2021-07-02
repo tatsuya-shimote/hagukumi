@@ -15,16 +15,17 @@ class User < ApplicationRecord
   
   def follow(other_user)
     unless self == other_user
-      self.active_relationships.find_or_create_by(follower_id: other_user.id)
+      self.active_relationships.find_or_create_by(followed_id: other_user.id)
     end
   end
 
   def unfollow(other_user)
-    relationship = self.active_relationships.find_by(follower_id: other_user.id)
+    relationship = self.active_relationships.find_by(followed_id: other_user.id)
     relationship.destroy if relationship
   end
   
   def following?(other_user)
     self.followings.include?(other_user)
   end
+  
 end

@@ -64,7 +64,6 @@ let date = now.getDate()
           hugId: ""
         },
         image:""
-        
         }
     },
     components: {

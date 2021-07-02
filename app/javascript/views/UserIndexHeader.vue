@@ -54,6 +54,28 @@
             <v-list-item>
               <v-list-item-content>
                 <v-list-item-title>
+                  <v-icon color="primary">mdi-account</v-icon>
+                  <a class = "button" active-class="link--active" @click="profile">
+                    プロフィール
+                  </a>
+                </v-list-item-title>
+              </v-list-item-content>
+            </v-list-item>
+            
+            <v-list-item>
+              <v-list-item-content>
+                <v-list-item-title>
+                  <v-icon color="primary">mdi-account-edit</v-icon>
+                  <a class = "button" active-class="link--active" @click="profileEdit">
+                    プロフィール編集
+                  </a>
+                </v-list-item-title>
+              </v-list-item-content>
+            </v-list-item>
+            
+            <v-list-item>
+              <v-list-item-content>
+                <v-list-item-title>
                   <v-icon color="primary">mdi-logout</v-icon>
                   <a class = "button" active-class="link--active" @click="logout">
                     ログアウト
@@ -116,8 +138,16 @@ export default {
     userIndex(){
       this.changeDrawer()
       this.$router.push(`/users`)
-    }
+    },
     
+    profile(){
+      this.changeDrawer()
+      this.$router.push(`/users/${this.$store.getters.userId}/profile`)
+    },
+    profileEdit(){
+      this.changeDrawer()
+      this.$router.push(`/users/${this.$store.getters.userId}/edit`)
+    },
   }
 }
 

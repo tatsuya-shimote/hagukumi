@@ -3,9 +3,9 @@
     <v-list flat>
     <v-subheader>ユーザー一覧</v-subheader>
       <v-list-item-group
-        v-model="selectedItem"
+        color="primary"
       >
-        <template v-for="(user, index) in users">
+        <template v-for="user in users">
           <router-link :to="{name:'profile_path', params:{id: user.id}}">
             <v-list-item
               :key="user.name"
@@ -24,7 +24,6 @@
               </v-list-item-content>
             </v-list-item>
           </router-link>
-          
         </template>
       </v-list-item-group>
     </v-list>
@@ -56,7 +55,6 @@ import axios from "axios"
 <style scoped>
 a{
   text-decoration: none;
-  color: black;
 }
   
 </style>
