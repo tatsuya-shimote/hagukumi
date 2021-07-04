@@ -4,6 +4,7 @@
       <v-snackbar
         v-model="snackbar"
         timeout="3000"
+        color="light-blue"
       >
         {{ message }}
       </v-snackbar>
@@ -21,7 +22,7 @@
           <p id="user-name">{{user.name}}</p>
           <div v-if="user.id !== this.$store.getters.userId">
             <v-btn color="blue" id="follow-btn" max-width="350" @click="follow" v-if="unfollowing">Follow</v-btn>
-            <v-btn color="green accent-3" id="follow-btn" max-width="350" @click="unfollow" v-else>Following</v-btn>
+            <v-btn color="green accent-4" id="follow-btn" max-width="350" @click="unfollow" v-else>Following</v-btn>
           </div>
         </v-col>
         <v-col cols="12" md="6">
@@ -192,8 +193,11 @@ import axios from "axios"
   font-size: 30px;
 }
 #follow-btn{
+  font-family: 'RocknRoll One', sans-serif;
   position: relative;
   top: 10px;
+  color: white;
+  font-weight: bold;
 }
 a{
   text-decoration: none;
