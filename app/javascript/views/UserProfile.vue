@@ -31,25 +31,25 @@
           </v-card>
         </v-col>
      </v-row>
-     <v-tabs
-        v-model="tabs"
-        centered
-        fixed-tabs
-        icons-and-text
-        class="mt-4"
-      >
-        <v-tabs-slider></v-tabs-slider>
-  
-        <v-tab href="#tab-1">
-          Follow
-          <v-icon>mdi-account</v-icon>
-        </v-tab>
-  
-        <v-tab href="#tab-2">
-          Follwer
-          <v-icon>mdi-account</v-icon>
-        </v-tab>
-      </v-tabs>
+    <v-tabs
+      v-model="tabs"
+      centered
+      fixed-tabs
+      icons-and-text
+      class="mt-4"
+    >
+      <v-tabs-slider></v-tabs-slider>
+
+      <v-tab href="#tab-1">
+        Follow
+        <v-icon>mdi-account</v-icon>
+      </v-tab>
+
+      <v-tab href="#tab-2">
+        Follwer
+        <v-icon>mdi-account</v-icon>
+      </v-tab>
+    </v-tabs>
     <v-tabs-items v-model="tabs">
       <v-tab-item value="tab-1" >
         <v-list flat>
@@ -120,8 +120,6 @@ import axios from "axios"
         followers:[],
         followeds:[],
         userImage:"",
-        text:"こんにちは",
-        selectedItem: 1,
         tabs: null,
         snackbar: false,
         message: "",

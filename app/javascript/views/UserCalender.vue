@@ -133,9 +133,7 @@ import axios from "axios"
       selectedOpen: false,
       typeToLabel: {
         month: 'Month',
-        week: 'Week',
         day: 'Day',
-        '4day': '4 Days',
       },
       errors:"",
       prepareEditHugCount:""
