@@ -1,13 +1,6 @@
 <template>
   <div>
     <v-container>
-      <v-snackbar
-        v-model="snackbar"
-        timeout="3000"
-        color="light-blue"
-      >
-        {{ message }}
-      </v-snackbar>
       <v-row>
         <v-col cols="12" md="6">
           <v-avatar size="150" v-if="userImage">
@@ -19,19 +12,13 @@
             </v-icon>
           </v-avatar>
           
-          <p id="user-name">{{user.name}}</p>
+          <p id="user-name">{{user.name}} 幸福度{{user.hug_count_sum}}pt</p>
           <div v-if="user.id !== this.$store.getters.userId">
             <v-btn color="blue" id="follow-btn" max-width="350" @click="follow" v-if="unfollowing">Follow</v-btn>
             <v-btn color="green accent-4" id="follow-btn" max-width="350" @click="unfollow" v-else>Following</v-btn>
           </div>
-        </v-col>
-        <v-col cols="12" md="6">
-          <v-card min-height="250">
-            <v-card-title>幸福度{{user.hug_count_sum}}pt</v-card-title>
-          </v-card>
-        </v-col>
-     </v-row>
-    <v-tabs
+          <MicropostsRegistDialog v-else></MicropostsRegistDialog>
+          <v-tabs
       v-model="tabs"
       centered
       fixed-tabs
@@ -81,7 +68,7 @@
       <v-tab-item value="tab-2">
         <v-list flat>
           <v-list-item-group
-            v-model="selectedItem"
+            color="primary"
           >
             <div v-for="follower in followers" :key="follower.name">
               <router-link :to="{name:'profile_path', params:{id: follower.id}}">
@@ -106,13 +93,42 @@
         </v-list>
       </v-tab-item>
     </v-tabs-items>
+    </v-col>
+    <v-col cols="12" md="6">
+      <v-list flat>
+        <v-subheader>Posts</v-subheader>
+          <v-list-item-group
+            color="primary"
+          >
+            <template v-for="userpost in this.$store.getters.userposts">
+                <v-list-item
+                  :key="userpost.content"
+                  class="mt-4"
+                >
+                  <v-list-item-content>
+                    <v-list-item-title>{{userpost.content}}</v-list-item-title>
+                  </v-list-item-content>
+                </v-list-item>
+                <v-divider></v-divider>
+            </template>
+          </v-list-item-group>
+        </v-list>
+      </v-col>
+      </v-row>
+      <v-snackbar
+          v-model="snackbar"
+          timeout="3000"
+          color="light-blue"
+        >
+          {{ message }}
+      </v-snackbar>
     </v-container>
   </div>
 </template>
 
 <script>
 import axios from "axios"
-
+import MicropostsRegistDialog from "./MicropostsRegistDialog.vue"
   export default{
     data(){
       return{
@@ -132,6 +148,11 @@ import axios from "axios"
     },
     created(){
       this.getUserProfileData(this.$route.params.id)
+       axios.get(`/api/v1/users/${this.$route.params.id}/user_microposts`)
+      .then(response => {
+        console.log(response.data)
+        this.$store.commit("getUserPosts", response.data.userposts)
+      })
     },
     methods:{
       getUserProfileData(id){
@@ -180,6 +201,9 @@ import axios from "axios"
         })
       },
     },
+    components:{
+      MicropostsRegistDialog
+    }
     
   }
 </script>

@@ -14,7 +14,8 @@ export default new Vuex.Store({
     userId: null,
     user:{},
     userImage:"",
-    events: []
+    events: [],
+    userposts: []
   },
   getters:{
     idToken: state => state.idToken,
@@ -22,9 +23,13 @@ export default new Vuex.Store({
     userId: state => state.userId,
     user: state => state.user,
     userHugCount: state => state.user.hug_count_sum,
-    userImage: state => state.userImage
+    userImage: state => state.userImage,
+    userposts: state => state.userposts
   },
   mutations: {
+    getUserPosts(state, userposts){
+      state.userposts = userposts
+    },
     
     changeOverlay(state) {
       state.overlay = !state.overlay ;
@@ -52,6 +57,10 @@ export default new Vuex.Store({
     
     updateHugCount(state, hug){
       state.events.find(el => el.hug_id === String(hug.id)).name = String(hug.count)
+    },
+    
+    updateUserposts(state, userpost){
+      state.userposts.push({content: userpost})
     },
     
     resetEvents(state){
@@ -84,7 +93,12 @@ export default new Vuex.Store({
           const e = response.data;
           Object.keys(e).forEach(key => {
             const userHugInfo = e[key]
-            state.events.push({name: `${userHugInfo.count}`, start: `${userHugInfo.year}-${userHugInfo.month}-${userHugInfo.date}`, color: "blue", hug_id: `${userHugInfo.id}`})
+            state.events.push({
+              name: `${userHugInfo.count}`, 
+              start: `${userHugInfo.year}-${userHugInfo.month}-${userHugInfo.date}`, 
+              color: "blue", 
+              hug_id: `${userHugInfo.id}`
+            })
           })
         })
     },

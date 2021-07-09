@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_06_30_072910) do
+ActiveRecord::Schema.define(version: 2021_07_08_061042) do
 
   create_table "hugs", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4", force: :cascade do |t|
     t.bigint "user_id"
@@ -22,6 +22,14 @@ ActiveRecord::Schema.define(version: 2021_06_30_072910) do
     t.integer "month"
     t.integer "date"
     t.index ["user_id"], name: "index_hugs_on_user_id"
+  end
+
+  create_table "microposts", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4", force: :cascade do |t|
+    t.bigint "user_id"
+    t.string "content"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["user_id"], name: "index_microposts_on_user_id"
   end
 
   create_table "relationships", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4", force: :cascade do |t|
@@ -44,6 +52,7 @@ ActiveRecord::Schema.define(version: 2021_06_30_072910) do
   end
 
   add_foreign_key "hugs", "users"
+  add_foreign_key "microposts", "users"
   add_foreign_key "relationships", "users", column: "followed_id"
   add_foreign_key "relationships", "users", column: "follower_id"
 end

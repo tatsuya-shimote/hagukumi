@@ -7,10 +7,13 @@ Rails.application.routes.draw do
           get :profile
           get :following
           get :follower
+          get :user_microposts
         end
       end
       resources :relationships, only: [:create, :destroy]
       resources :sessions, only: [:create, :destroy]
+      resources :microposts, only: [:create, :destroy] do
+      end
       resources :hugs, only: [:index, :create, :update, :destroy]
     end
   end

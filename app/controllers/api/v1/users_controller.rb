@@ -1,5 +1,5 @@
 class Api::V1::UsersController < ApiController
-  before_action :require_login, only: [:index, :show, :update, :profile, :following, :follower]
+  before_action :require_login, only: [:index, :show, :update, :profile, :following, :follower, :user_microposts]
 
   def index
     users = User.select(:id, :name, :image)
@@ -56,6 +56,16 @@ class Api::V1::UsersController < ApiController
     user = User.find(params[:id])
     follower = user.follower
     render json: follower
+  end
+  
+  def user_microposts
+    user = User.find(params[:id])
+    microposts = user.microposts
+    if microposts.empty?
+      render json: {message: "投稿がありません"}
+    else
+      render json: {userposts: microposts}
+    end
   end
   
   private
