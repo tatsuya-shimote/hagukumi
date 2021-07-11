@@ -43,7 +43,7 @@
           <v-list-item-group
             color="primary"
           >
-            <div v-for="followed in followeds" :key="followed.name">
+            <div v-for="followed in followeds" :key="followed.id">
               <router-link :to="{name:'profile_path', params:{id: followed.id}}">
                 <v-list-item
                   class="mt-4"
@@ -70,7 +70,7 @@
           <v-list-item-group
             color="primary"
           >
-            <div v-for="follower in followers" :key="follower.name">
+            <div v-for="follower in followers" :key="follower.id">
               <router-link :to="{name:'profile_path', params:{id: follower.id}}">
                 <v-list-item
                   class="mt-4"
@@ -100,14 +100,21 @@
           <v-list-item-group
             color="primary"
           >
-            <template v-for="userpost in this.$store.getters.userposts">
+            <template v-for="(userpost, index) in this.$store.getters.userposts">
                 <v-list-item
-                  :key="userpost.content"
+                  :key="index"
                   class="mt-4"
                 >
                   <v-list-item-content>
                     <v-list-item-title>{{userpost.content}}</v-list-item-title>
                   </v-list-item-content>
+                  <v-btn
+                    text
+                    color="red"
+                    @click="deleteUserpost(userpost.id)"
+                  >
+                    削除
+                  </v-btn>
                 </v-list-item>
                 <v-divider></v-divider>
             </template>
@@ -144,15 +151,12 @@ import MicropostsRegistDialog from "./MicropostsRegistDialog.vue"
     },
     beforeRouteUpdate(to,from,next){
       this.getUserProfileData(to.params.id)
+      this.getUserPosts(to.params.id)
       next()
     },
     created(){
       this.getUserProfileData(this.$route.params.id)
-       axios.get(`/api/v1/users/${this.$route.params.id}/user_microposts`)
-      .then(response => {
-        console.log(response.data)
-        this.$store.commit("getUserPosts", response.data.userposts)
-      })
+      this.getUserPosts(this.$route.params.id)
     },
     methods:{
       getUserProfileData(id){
@@ -200,6 +204,21 @@ import MicropostsRegistDialog from "./MicropostsRegistDialog.vue"
           this.followeds = response.data
         })
       },
+      getUserPosts(id){
+        axios.get(`/api/v1/users/${id}/user_microposts`)
+        .then(response => {
+          console.log(response.data)
+          this.$store.commit("getUserPosts", response.data.userposts)
+        })
+      },
+      deleteUserpost(id){
+        axios.delete(`/api/v1/microposts/${id}`)
+        .then(response => {
+          console.log(response.data)
+          this.getUserPosts(this.$route.params.id)
+        })
+      }
+      
     },
     components:{
       MicropostsRegistDialog

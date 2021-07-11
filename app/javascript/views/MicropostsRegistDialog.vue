@@ -73,7 +73,8 @@ import axios from "axios"
           console.log(response.data)
           this.$store.commit("updateUserposts", this.micropost)
           this.dialog = false
-          
+          this.micropost = ""
+          this.errors = ""
         })
         .catch(error => {
             console.error(error);

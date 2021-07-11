@@ -60,7 +60,12 @@ export default new Vuex.Store({
     },
     
     updateUserposts(state, userpost){
-      state.userposts.push({content: userpost})
+      if(state.userposts){
+        state.userposts.push({content: userpost})
+      }else{
+        state.userposts = []
+        state.userposts.push({content: userpost})
+      }
     },
     
     resetEvents(state){

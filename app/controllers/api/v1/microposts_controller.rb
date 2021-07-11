@@ -11,12 +11,12 @@ class Api::V1::MicropostsController < ApiController
     if micropost.save
       render json: {message: "投稿しました"}
     else
-      render json: {error: "投稿に失敗しました"}
+      render json: {errors: micropost.errors.full_messages}, status: :unprocessable_entity
     end
   end
   
-  def delete
-    micropost = current_user.microposts.find_by(id: params[:post_id])
+  def destroy
+    micropost = @current_user.microposts.find_by(id: params[:id])
     if micropost.nil?
       render json: {message: "すでに削除されています"}
     else
