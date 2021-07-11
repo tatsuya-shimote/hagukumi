@@ -15,7 +15,7 @@
             >今日のハグを記録</v-btn>
           </template>
           <template v-slot:default="dialog">
-            <v-card min-width="350" max-height="800" class="hug-register">
+            <v-card min-width="320" max-height="800" class="hug-register">
               <v-container>
                 <v-card-title>ハグの記録</v-card-title>
                 <div v-if="errors.length != 0">

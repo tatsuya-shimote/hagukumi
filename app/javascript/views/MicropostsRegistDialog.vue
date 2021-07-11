@@ -15,7 +15,7 @@
             >幸せエピソードの投稿</v-btn>
           </template>
           <template v-slot:default="dialog">
-            <v-card min-width="350" max-height="800">
+            <v-card min-width="320" max-height="800">
               <v-container>
                 <v-card-title>幸せをみんなと分け合おう</v-card-title>
                 
