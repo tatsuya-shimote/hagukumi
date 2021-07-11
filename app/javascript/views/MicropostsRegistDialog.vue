@@ -1,5 +1,5 @@
 <template>
-    <v-row justify="space-around">
+    <v-row>
       <v-col cols="auto">
         <v-dialog
             transition="dialog-top-transition"
@@ -12,12 +12,12 @@
               v-bind="attrs"
               v-on="on"
               id="post-record"
-            >ハグエピソードの投稿</v-btn>
+            >幸せエピソードの投稿</v-btn>
           </template>
           <template v-slot:default="dialog">
             <v-card min-width="350" max-height="800">
               <v-container>
-                <v-card-title>ハグエピソード</v-card-title>
+                <v-card-title>幸せをみんなと分け合おう</v-card-title>
                 
                 <div v-if="errors.length != 0">
                   <ul v-for="(e, index) in errors" :key="index">
@@ -34,7 +34,7 @@
                     v-model="micropost"
                     clearable
                     clear-icon="mdi-close-circle"
-                    label="ハグエピソードの投稿"
+                    label="幸せエピソード"
                     :counter="140"
                   ></v-textarea>
                   <v-btn
@@ -99,7 +99,13 @@ import axios from "axios"
 </script>
 
 <style scoped>
+@import url('https://fonts.googleapis.com/css2?family=RocknRoll+One&display=swap');
 #post,#post-record{
   color: white;
 }
+#post-record{
+  font-family: 'RocknRoll One', sans-serif;
+  font-weight: bold;
+}
+
 </style>

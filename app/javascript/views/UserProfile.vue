@@ -3,16 +3,16 @@
     <v-container>
       <v-row>
         <v-col cols="12" md="6">
-          <v-avatar size="150" v-if="userImage">
+          <v-avatar size="150" id="avatar" v-if="userImage">
             <v-img :src="userImage"></v-img>
           </v-avatar>
-          <v-avatar size="150" color="indigo" v-else>
+          <v-avatar size="150" color="indigo" id="avatar" v-else>
             <v-icon size="100" dark>
               mdi-account-circle
             </v-icon>
           </v-avatar>
-          
-          <p id="user-name">{{user.name}} 幸福度{{user.hug_count_sum}}pt</p>
+          <p id="user-name">{{user.name}}</p>
+          <p>幸福度{{user.hug_count_sum}}pt</p>
           <div v-if="user.id !== this.$store.getters.userId">
             <v-btn color="blue" id="follow-btn" max-width="350" @click="follow" v-if="unfollowing">Follow</v-btn>
             <v-btn color="green accent-4" id="follow-btn" max-width="350" @click="unfollow" v-else>Following</v-btn>
@@ -206,4 +206,5 @@ import UserPosts from "./UserPosts.vue"
 a{
   text-decoration: none;
 }
+
 </style>
