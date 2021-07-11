@@ -19,108 +19,84 @@
           </div>
           <MicropostsRegistDialog v-else></MicropostsRegistDialog>
           <v-tabs
-      v-model="tabs"
-      centered
-      fixed-tabs
-      icons-and-text
-      class="mt-4"
-    >
-      <v-tabs-slider></v-tabs-slider>
+            v-model="tabs"
+            centered
+            fixed-tabs
+            icons-and-text
+            class="mt-4"
+          >
+            <v-tabs-slider></v-tabs-slider>
+  
+            <v-tab href="#tab-1">
+              Follow
+              <v-icon>mdi-account</v-icon>
+            </v-tab>
 
-      <v-tab href="#tab-1">
-        Follow
-        <v-icon>mdi-account</v-icon>
-      </v-tab>
-
-      <v-tab href="#tab-2">
-        Follwer
-        <v-icon>mdi-account</v-icon>
-      </v-tab>
-    </v-tabs>
-    <v-tabs-items v-model="tabs">
-      <v-tab-item value="tab-1" >
-        <v-list flat>
-          <v-list-item-group
-            color="primary"
-          >
-            <div v-for="followed in followeds" :key="followed.id">
-              <router-link :to="{name:'profile_path', params:{id: followed.id}}">
-                <v-list-item
-                  class="mt-4"
+            <v-tab href="#tab-2">
+              Follwer
+              <v-icon>mdi-account</v-icon>
+            </v-tab>
+          </v-tabs>
+          <v-tabs-items v-model="tabs">
+            <v-tab-item value="tab-1" >
+              <v-list flat>
+                <v-list-item-group
+                  color="primary"
                 >
-                  <v-list-item-avatar>
-                    <v-img :src="followed.image.url" v-if="followed.image.url"></v-img>
-                    <v-avatar color="indigo"v-else>
-                      <v-icon dark>
-                        mdi-account-circle
-                      </v-icon>
-                    </v-avatar>
-                  </v-list-item-avatar>
-                  <v-list-item-content>
-                    <v-list-item-title>{{followed.name}}</v-list-item-title>
-                  </v-list-item-content>
-                </v-list-item>
-              </router-link>
-            </div>
-          </v-list-item-group>
-        </v-list>
-      </v-tab-item>
-      <v-tab-item value="tab-2">
-        <v-list flat>
-          <v-list-item-group
-            color="primary"
-          >
-            <div v-for="follower in followers" :key="follower.id">
-              <router-link :to="{name:'profile_path', params:{id: follower.id}}">
-                <v-list-item
-                  class="mt-4"
+                  <div v-for="followed in followeds" :key="followed.id">
+                    <router-link :to="{name:'profile_path', params:{id: followed.id}}">
+                      <v-list-item
+                        class="mt-4"
+                      >
+                        <v-list-item-avatar>
+                          <v-img :src="followed.image.url" v-if="followed.image.url"></v-img>
+                          <v-avatar color="indigo"v-else>
+                            <v-icon dark>
+                              mdi-account-circle
+                            </v-icon>
+                          </v-avatar>
+                        </v-list-item-avatar>
+                        <v-list-item-content>
+                          <v-list-item-title>{{followed.name}}</v-list-item-title>
+                        </v-list-item-content>
+                      </v-list-item>
+                    </router-link>
+                  </div>
+                </v-list-item-group>
+              </v-list>
+            </v-tab-item>
+            <v-tab-item value="tab-2">
+              <v-list flat>
+                <v-list-item-group
+                  color="primary"
                 >
-                  <v-list-item-avatar>
-                    <v-img :src="follower.image.url" v-if="follower.image.url"></v-img>
-                    <v-avatar color="indigo"v-else>
-                      <v-icon dark>
-                        mdi-account-circle
-                      </v-icon>
-                    </v-avatar>
-                  </v-list-item-avatar>
-                  <v-list-item-content>
-                    <v-list-item-title>{{follower.name}}</v-list-item-title>
-                  </v-list-item-content>
-                </v-list-item>
-              </router-link>
-            </div>
-          </v-list-item-group>
-        </v-list>
-      </v-tab-item>
-    </v-tabs-items>
-    </v-col>
-    <v-col cols="12" md="6">
-      <v-list flat>
-        <v-subheader>Posts</v-subheader>
-          <v-list-item-group
-            color="primary"
-          >
-            <template v-for="(userpost, index) in this.$store.getters.userposts">
-                <v-list-item
-                  :key="index"
-                  class="mt-4"
-                >
-                  <v-list-item-content>
-                    <v-list-item-title>{{userpost.content}}</v-list-item-title>
-                  </v-list-item-content>
-                  <v-btn
-                    text
-                    color="red"
-                    @click="deleteUserpost(userpost.id)"
-                  >
-                    削除
-                  </v-btn>
-                </v-list-item>
-                <v-divider></v-divider>
-            </template>
-          </v-list-item-group>
-        </v-list>
-      </v-col>
+                  <div v-for="follower in followers" :key="follower.id">
+                    <router-link :to="{name:'profile_path', params:{id: follower.id}}">
+                      <v-list-item
+                        class="mt-4"
+                      >
+                        <v-list-item-avatar>
+                          <v-img :src="follower.image.url" v-if="follower.image.url"></v-img>
+                          <v-avatar color="indigo"v-else>
+                            <v-icon dark>
+                              mdi-account-circle
+                            </v-icon>
+                          </v-avatar>
+                        </v-list-item-avatar>
+                        <v-list-item-content>
+                          <v-list-item-title>{{follower.name}}</v-list-item-title>
+                        </v-list-item-content>
+                      </v-list-item>
+                    </router-link>
+                  </div>
+                </v-list-item-group>
+              </v-list>
+            </v-tab-item>
+          </v-tabs-items>
+        </v-col>
+        <v-col cols="12" md="6">
+          <UserPosts></UserPosts>
+        </v-col>
       </v-row>
       <v-snackbar
           v-model="snackbar"
@@ -136,6 +112,8 @@
 <script>
 import axios from "axios"
 import MicropostsRegistDialog from "./MicropostsRegistDialog.vue"
+import UserPosts from "./UserPosts.vue"
+
   export default{
     data(){
       return{
@@ -151,12 +129,10 @@ import MicropostsRegistDialog from "./MicropostsRegistDialog.vue"
     },
     beforeRouteUpdate(to,from,next){
       this.getUserProfileData(to.params.id)
-      this.getUserPosts(to.params.id)
       next()
     },
     created(){
       this.getUserProfileData(this.$route.params.id)
-      this.getUserPosts(this.$route.params.id)
     },
     methods:{
       getUserProfileData(id){
@@ -204,24 +180,11 @@ import MicropostsRegistDialog from "./MicropostsRegistDialog.vue"
           this.followeds = response.data
         })
       },
-      getUserPosts(id){
-        axios.get(`/api/v1/users/${id}/user_microposts`)
-        .then(response => {
-          console.log(response.data)
-          this.$store.commit("getUserPosts", response.data.userposts)
-        })
-      },
-      deleteUserpost(id){
-        axios.delete(`/api/v1/microposts/${id}`)
-        .then(response => {
-          console.log(response.data)
-          this.getUserPosts(this.$route.params.id)
-        })
-      }
       
     },
     components:{
-      MicropostsRegistDialog
+      MicropostsRegistDialog,
+      UserPosts,
     }
     
   }

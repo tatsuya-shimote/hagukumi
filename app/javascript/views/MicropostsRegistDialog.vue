@@ -18,22 +18,25 @@
             <v-card min-width="350" max-height="800">
               <v-container>
                 <v-card-title>ハグエピソード</v-card-title>
+                
                 <div v-if="errors.length != 0">
                   <ul v-for="(e, index) in errors" :key="index">
                     <li><font color="red">{{ e }}</font></li>
                   </ul>
                 </div>
+                
                 <v-form
                   ref="form"
                   v-model="valid"
                   lazy-validation
                 >
-                  <v-text-field
+                  <v-textarea
                     v-model="micropost"
-                    :counter="140"
+                    clearable
+                    clear-icon="mdi-close-circle"
                     label="ハグエピソードの投稿"
-                  ></v-text-field>
-                  
+                    :counter="140"
+                  ></v-textarea>
                   <v-btn
                     color="blue"
                     class="mr-4"
@@ -42,8 +45,8 @@
                   >
                     投稿
                   </v-btn>
-              
                 </v-form>
+                
               </v-container>
             </v-card>
           </template>
@@ -71,7 +74,7 @@ import axios from "axios"
         axios.post(`/api/v1/microposts`,{content: this.micropost}, {headers: { 'X-Requested-With': 'XMLHttpRequest' }}, {withCredentials: true})
         .then(response => {
           console.log(response.data)
-          this.$store.commit("updateUserposts", this.micropost)
+          this.getUserPosts()
           this.dialog = false
           this.micropost = ""
           this.errors = ""
@@ -82,6 +85,13 @@ import axios from "axios"
               this.errors = error.response.data.errors;
             }
           });
+      },
+       getUserPosts(){
+        axios.get(`/api/v1/users/${this.$route.params.id}/user_microposts`)
+        .then(response => {
+          console.log(response.data)
+          this.$store.commit("getUserPosts", response.data.userposts)
+        })
       },
     }
   }
