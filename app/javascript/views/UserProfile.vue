@@ -125,7 +125,8 @@
       <v-snackbar
           v-model="snackbar"
           timeout="3000"
-          color="light-blue"
+          text
+          :color="color"
         >
           {{ message }}
       </v-snackbar>
@@ -148,6 +149,7 @@ import MicropostsRegistDialog from "./MicropostsRegistDialog.vue"
         snackbar: false,
         message: "",
         unfollowing: "",
+        color: ""
       }
     },
     beforeRouteUpdate(to,from,next){
@@ -174,6 +176,7 @@ import MicropostsRegistDialog from "./MicropostsRegistDialog.vue"
       follow(){
         axios.post(`/api/v1/relationships`,{followed_id: this.user.id})
         .then(response => {
+          this.color = "green accent-4"
           this.message = response.data.message
           this.unfollowing = response.data.unfollow
           this.follower()
@@ -184,6 +187,7 @@ import MicropostsRegistDialog from "./MicropostsRegistDialog.vue"
       unfollow(){
         axios.delete(`/api/v1/relationships/${this.user.id}`)
         .then(response => {
+          this.color = "light-blue"
           this.message = response.data.message
           this.unfollowing = response.data.unfollow
           this.follower()
@@ -208,14 +212,15 @@ import MicropostsRegistDialog from "./MicropostsRegistDialog.vue"
       getUserPosts(id){
         axios.get(`/api/v1/users/${id}/user_microposts`)
         .then(response => {
-          console.log(response.data)
           this.$store.commit("getUserPosts", response.data.userposts)
         })
       },
       deleteUserpost(id){
         axios.delete(`/api/v1/microposts/${id}`)
         .then(response => {
-          console.log(response.data)
+          this.color = "red"
+          this.message = response.data.message
+          this.snackbar = true
           this.getUserPosts(this.$route.params.id)
         })
       }
@@ -244,5 +249,6 @@ import MicropostsRegistDialog from "./MicropostsRegistDialog.vue"
 a{
   text-decoration: none;
 }
+
 
 </style>

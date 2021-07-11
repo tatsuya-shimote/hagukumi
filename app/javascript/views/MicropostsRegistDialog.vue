@@ -52,6 +52,14 @@
           </template>
         </v-dialog>
       </v-col>
+      <v-snackbar
+          v-model="snackbar"
+          timeout="3000"
+          color="light-blue"
+          text
+        >
+          {{ message }}
+      </v-snackbar>
     </v-row>
 </template>
 
@@ -63,7 +71,9 @@ import axios from "axios"
         valid: true,
         dialog: false,
         micropost:"",
-        errors:''
+        errors:'',
+        snackbar: false,
+        message: ""
       }
     },
     methods:{
@@ -76,6 +86,8 @@ import axios from "axios"
           console.log(response.data)
           this.getUserPosts()
           this.dialog = false
+          this.snackbar = true
+          this.message = response.data.message
           this.micropost = ""
           this.errors = ""
         })
