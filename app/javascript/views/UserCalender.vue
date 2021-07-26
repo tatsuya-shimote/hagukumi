@@ -116,7 +116,14 @@
           </v-card>
         </v-menu>
     </v-sheet>
-    
+    <v-snackbar
+      v-model="snackbar"
+      timeout="3000"
+      color="light-blue"
+      text
+    >
+      {{ message }}
+    </v-snackbar>
   </v-app>
 </template>
 
@@ -136,7 +143,9 @@ import axios from "axios"
         day: 'Day',
       },
       errors:"",
-      prepareEditHugCount:""
+      prepareEditHugCount:"",
+      snackbar: false,
+      message: ""
       
     }),
     mounted () {
@@ -192,6 +201,8 @@ import axios from "axios"
           const editHugCount = this.prepareEditHugCount + response.data.count;
           this.$store.commit("updateHugCountSum", editHugCount);
           this.selectedOpen = false;
+          this.message = "記録を修正しました"
+          this.snackbar = "true"
           this.errors = ""
         }).catch(error => {
           console.error(error)
@@ -203,6 +214,8 @@ import axios from "axios"
       deleteHugRecord(id){
         axios.delete(`/api/v1/hugs/${id}`)
         .then(response => {
+          this.message = "記録を削除しました"
+          this.snackbar = "true"
           this.selectedOpen = false;
         }).catch(error => {
           console.error(error);

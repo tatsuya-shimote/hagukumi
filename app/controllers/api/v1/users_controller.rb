@@ -58,6 +58,11 @@ class Api::V1::UsersController < ApiController
     render json: follower
   end
   
+  def user_likes
+    likes = @current_user.likes_post
+    render json: {likes: likes}
+  end
+  
   def user_microposts
     user = User.find(params[:id])
     microposts = user.microposts
@@ -67,6 +72,7 @@ class Api::V1::UsersController < ApiController
       render json: {userposts: microposts}
     end
   end
+  
   
   private
 

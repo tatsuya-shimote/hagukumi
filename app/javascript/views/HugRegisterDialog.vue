@@ -68,6 +68,14 @@
           </template>
         </v-dialog>
       </v-col>
+      <v-snackbar
+      v-model="snackbar"
+      timeout="3000"
+      color="light-blue"
+      text
+    >
+      {{ message }}
+    </v-snackbar>
     </v-row>
 </template>
 
@@ -79,7 +87,9 @@ import axios from "axios"
       return{
         valid: true,
         dialog: false,
-        errors:''
+        errors:'',
+        snackbar: false,
+        message: ""
       }
     },
     methods:{
@@ -94,6 +104,8 @@ import axios from "axios"
           this.dialog = false
           this.$store.commit("sumHugCount", e.count)
           this.$store.commit("calenderRecord", {name: `${e.count}`, start: `${e.year}-${e.month}-${e.date}`, color: "blue", hug_id: `${e.id}`})
+          this.message = "記録しました"
+          this.snackbar = true
           this.errors = ''
         })
         .catch(error => {

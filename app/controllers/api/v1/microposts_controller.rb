@@ -1,9 +1,9 @@
 class Api::V1::MicropostsController < ApiController
   before_action :require_login
   
-  def index
-    #フォローしているユーザーのみポストを時系列で表示
-  end
+  # def index
+    
+  # end
   
   def create
     user = @current_user

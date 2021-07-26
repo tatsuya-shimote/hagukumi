@@ -12,6 +12,8 @@ class User < ApplicationRecord
   has_many :passive_relationships, class_name: 'Relationship', foreign_key: 'followed_id', dependent: :destroy
   has_many :follower, through: :passive_relationships, source: :follower
   has_many :microposts, dependent: :destroy
+  has_many :likes, dependent: :destroy
+  has_many :likes_post, through: :likes, source: :micropost
   
   
   def follow(other_user)
@@ -29,4 +31,18 @@ class User < ApplicationRecord
     self.followings.include?(other_user)
   end
   
+  def like(micropost)
+    unless self.likes.find_by(micropost_id: micropost.id)
+      self.likes.create(micropost_id: micropost.id)
+    end
+  end
+  
+  def unlike(micropost)
+    like = self.likes.find_by(micropost_id: micropost.id)
+    like.destroy if like
+  end
+  
+  def like?(micropost)
+    self.likes_post.include?(micropost)
+  end
 end
